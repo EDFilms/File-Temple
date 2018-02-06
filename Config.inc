@@ -1,0 +1,10 @@
+#define ST_CFG_MULTI_THREADED         0
+#define ST_CFG_DATA_PROBE             1
+#define ST_CFG_INTERNAL_TESTS         1
+#define ST_CFG_JOURNALING_IS_DEFAULT  1
+#define ST_CFG_FILE_READING_SAFE_MODE 1
+#define ST_CFG_BUFFERED_WRITE         1
+#define ST_CFG_TRACK_MEMORY           0
+#define ST_CFG_MALLOC_CONTROLLED_NULL 0
+#define ST_CFG_USE_NEDMALLOC          0
+#define ST_CFG_USE_IDMAP              0
