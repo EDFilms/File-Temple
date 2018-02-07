@@ -333,40 +333,40 @@ end
 function install(_type)
 
   if _type == "Win32" then
-	  if (os.isdir("../../../SceneTrack.Unity")) then
+	  if (os.isdir("../../../GCAP.Unity")) then
       printf("Installing Unity Plugin Base")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library")
-      os.copyfile("../../Build/SceneTrack.cs", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/SceneTrack.cs")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library")
+      os.copyfile("../../Build/SceneTrack.cs", "../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/SceneTrack.cs")
       
       printf("Installing Windows32 Plugin to Unity Plugin")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows")
-      os.copyfile("../../Build/Win32/SceneTrack.dll", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrack.dll")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows")
+      os.copyfile("../../Build/Win32/SceneTrack.dll", "../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrack.dll")
     end
 
   elseif _type == "Win64" then
-	  if (os.isdir("../../../SceneTrack.Unity")) then
+	  if (os.isdir("../../../GCAP.Unity")) then
       printf("Installing Unity Plugin Base")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library")
-      os.copyfile("../../Build/SceneTrack.cs", "../../../SceneTrack.Unity/Assets/Assets/Plugins/SceneTrack/Library/SceneTrack.cs")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library")
+      os.copyfile("../../Build/SceneTrack.cs", "../../../GCAP.Unity/Assets/Assets/Plugins/SceneTrack/Library/SceneTrack.cs")
       
       printf("Installing Windows32 Plugin to Unity Plugin")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows")
-      os.copyfile("../../Build/Win64/SceneTrack.dll", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrack.dll")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows")
+      os.copyfile("../../Build/Win64/SceneTrack.dll", "../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrack.dll")
     end
 
   elseif _type == "macOS" then
-    if (os.isdir("../../../SceneTrack.Unity")) then
+    if (os.isdir("../../../GCAP.Unity")) then
       printf("Installing Unity Plugin Base")
-      os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/")
-      os.outputof("cp -R ../../Build/SceneTrack.cs ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/")
+      os.outputof("mkdir -p ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/")
+      os.outputof("cp -R ../../Build/SceneTrack.cs ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/")
 
       printf("Installing Mac Plugin to Unity Plugin")
-      os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
-      os.outputof("cp -R ../../Build/macOS/SceneTrack.bundle ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
+      os.outputof("mkdir -p ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Mac")
+      os.outputof("cp -R ../../Build/macOS/SceneTrack.bundle ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Mac")
     end
   end
 
@@ -379,40 +379,40 @@ function installFbxSdk(_type, _isDebug)
   -- SceneTrackFbx Library
 
   if _type == "Win32" then
-	  if (os.isdir("../../../SceneTrack.Unity")) then
+	  if (os.isdir("../../../GCAP.Unity")) then
       printf("Installing Fbx Unity Plugin Base")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library")
-      os.copyfile("../../Build/SceneTrackFbx.cs", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/SceneTrackFbx.cs")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library")
+      os.copyfile("../../Build/SceneTrackFbx.cs", "../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/SceneTrackFbx.cs")
       
       printf("Installing Fbx Windows32 Plugin to Unity Plugin")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows")
-      os.copyfile("../../Build/Win32/SceneTrackFbx.dll", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackFbx.dll")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows")
+      os.copyfile("../../Build/Win32/SceneTrackFbx.dll", "../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackFbx.dll")
     end
 
   elseif _type == "Win64" then
-	  if (os.isdir("../../../SceneTrack.Unity")) then
+	  if (os.isdir("../../../GCAP.Unity")) then
       printf("Installing Fbx Unity Plugin Base")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library")
-      os.copyfile("../../Build/SceneTrackFbx.cs", "../../../SceneTrack.Unity/Assets/Assets/Plugins/SceneTrack/Library/SceneTrackFbx.cs")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library")
+      os.copyfile("../../Build/SceneTrackFbx.cs", "../../../GCAP.Unity/Assets/Assets/Plugins/SceneTrack/Library/SceneTrackFbx.cs")
       
       printf("Installing Fbx Windows64 Plugin to Unity Plugin")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows")
-      os.copyfile("../../Build/Win64/SceneTrackFbx.dll", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackFbx.dll")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows")
+      os.copyfile("../../Build/Win64/SceneTrackFbx.dll", "../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackFbx.dll")
     end
 
   elseif _type == "macOS" then
-    if (os.isdir("../../../SceneTrack.Unity")) then
+    if (os.isdir("../../../GCAP.Unity")) then
       printf("Installing Fbx Unity Plugin Base")
-      os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/")
-      os.outputof("cp -R ../../Build/SceneTrackFbx.cs ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/")
+      os.outputof("mkdir -p ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/")
+      os.outputof("cp -R ../../Build/SceneTrackFbx.cs ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/")
 
       printf("Installing Fbx Mac Plugin to Unity Plugin")
-      os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
-      os.outputof("cp -R ../../Build/macOS/SceneTrackFbx.bundle ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
+      os.outputof("mkdir -p ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Mac")
+      os.outputof("cp -R ../../Build/macOS/SceneTrackFbx.bundle ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Mac")
     end
   end
 end
@@ -422,40 +422,40 @@ function installMidiSdk(_type, _isDebug)
   dst = ""
 
   if _type == "Win32" then
-	  if (os.isdir("../../../SceneTrack.Unity")) then
+	  if (os.isdir("../../../GCAP.Unity")) then
       printf("Installing Midi Unity Plugin Base")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library")
-      os.copyfile("../../Build/SceneTrackMidi.cs", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/SceneTrackMidi.cs")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library")
+      os.copyfile("../../Build/SceneTrackMidi.cs", "../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/SceneTrackMidi.cs")
       
       printf("Installing Midi Windows32 Plugin to Unity Plugin")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows")
-      os.copyfile("../../Build/Win32/SceneTrackMidi.dll", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackMidi.dll")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows")
+      os.copyfile("../../Build/Win32/SceneTrackMidi.dll", "../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackMidi.dll")
     end
 
   elseif _type == "Win64" then
-	  if (os.isdir("../../../SceneTrack.Unity")) then
+	  if (os.isdir("../../../GCAP.Unity")) then
       printf("Installing Midi Unity Plugin Base")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library")
-      os.copyfile("../../Build/SceneTrackMidi.cs", "../../../SceneTrack.Unity/Assets/Assets/Plugins/SceneTrack/Library/SceneTrackMidi.cs")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library")
+      os.copyfile("../../Build/SceneTrackMidi.cs", "../../../GCAP.Unity/Assets/Assets/Plugins/SceneTrack/Library/SceneTrackMidi.cs")
       
       printf("Installing Midi Windows64 Plugin to Unity Plugin")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows")
-      os.copyfile("../../Build/Win64/SceneTrackMidi.dll", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackMidi.dll")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows")
+      os.copyfile("../../Build/Win64/SceneTrackMidi.dll", "../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackMidi.dll")
     end
 
   elseif _type == "macOS" then
-    if (os.isdir("../../../SceneTrack.Unity")) then
+    if (os.isdir("../../../GCAP.Unity")) then
       printf("Installing Midi Unity Plugin Base")
-      os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/")
-      os.outputof("cp -R ../../Build/SceneTrackMidi.cs ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/")
+      os.outputof("mkdir -p ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/")
+      os.outputof("cp -R ../../Build/SceneTrackMidi.cs ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/")
 
       printf("Installing Midi Mac Plugin to Unity Plugin")
-      os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
-      os.outputof("cp -R ../../Build/macOS/SceneTrackMidi.bundle ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
+      os.outputof("mkdir -p ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Mac")
+      os.outputof("cp -R ../../Build/macOS/SceneTrackMidi.bundle ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Mac")
     end
   end
 end
@@ -469,40 +469,40 @@ function installVideoSdk(_type, _isDebug)
   -- SceneTrackVideo Library
 
   if _type == "Win32" then
-	  if (os.isdir("../../../SceneTrack.Unity")) then
+	  if (os.isdir("../../../GCAP.Unity")) then
       printf("Installing Video Unity Plugin Base")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library")
-      os.copyfile("../../Build/SceneTrackVideo.cs", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/SceneTrackVideo.cs")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library")
+      os.copyfile("../../Build/SceneTrackVideo.cs", "../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/SceneTrackVideo.cs")
       
       printf("Installing Video Windows32 Plugin to Unity Plugin")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows")
-      os.copyfile("../../Build/Win32/SceneTrackVideo.dll", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackVideo.dll")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows")
+      os.copyfile("../../Build/Win32/SceneTrackVideo.dll", "../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackVideo.dll")
     end
 
   elseif _type == "Win64" then
-	  if (os.isdir("../../../SceneTrack.Unity")) then
+	  if (os.isdir("../../../GCAP.Unity")) then
       printf("Installing Video Unity Plugin Base")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library")
-      os.copyfile("../../Build/SceneTrackVideo.cs", "../../../SceneTrack.Unity/Assets/Assets/Plugins/SceneTrack/Library/SceneTrackVideo.cs")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library")
+      os.copyfile("../../Build/SceneTrackVideo.cs", "../../../GCAP.Unity/Assets/Assets/Plugins/SceneTrack/Library/SceneTrackVideo.cs")
       
       printf("Installing Video Windows64 Plugin to Unity Plugin")
-      os.mkdir("../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows")
-      os.copyfile("../../Build/Win64/SceneTrackVideo.dll", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackVideo.dll")
+      os.mkdir("../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows")
+      os.copyfile("../../Build/Win64/SceneTrackVideo.dll", "../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackVideo.dll")
     end
 
   elseif _type == "macOS" then
-    if (os.isdir("../../../SceneTrack.Unity")) then
+    if (os.isdir("../../../GCAP.Unity")) then
       printf("Installing Video Unity Plugin Base")
-      os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/")
-      os.outputof("cp -R ../../Build/SceneTrackVideo.cs ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/")
+      os.outputof("mkdir -p ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/")
+      os.outputof("cp -R ../../Build/SceneTrackVideo.cs ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/")
 
       printf("Installing Video Mac Plugin to Unity Plugin")
-      os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
-      os.outputof("cp -R ../../Build/macOS/SceneTrackVideo.bundle ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
+      os.outputof("mkdir -p ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Mac")
+      os.outputof("cp -R ../../Build/macOS/SceneTrackVideo.bundle ../../../GCAP.Unity/Assets/Plugins/SceneTrack/Library/Mac")
     end
   end
 end
