@@ -23,7 +23,7 @@ The ``.lib`` files:-
 2. Copy ``C:\Program Files\Autodesk\FBX\FBX SDK\2017.0.1\lib\vs2015\x64\debug\libfbxsdk-md.lib`` to ``Scenetrack\Core\Source\External\FBX\Windows\lib\debug\``
 2. Copy ``C:\Program Files\Autodesk\FBX\FBX SDK\2017.0.1\lib\vs2015\x64\release\libfbxsdk-md.lib`` to ``Scenetrack\Core\Source\External\FBX\Windows\lib\release\``
 
-Apple macOs
+Apple macOS
 ---
 You should download the ``FBX SDK 2017.1 Clang (tgz - 122646Kb)``.
 
