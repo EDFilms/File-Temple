@@ -9,8 +9,8 @@ kFbxSdkVersion = "2017.1"
 -- Windows Fbx Sdk Path; ex. "C:/Program Files/Autodesk/FBX/FBX SDK/"
 kFbxSdkPathWindows = "../External/FBX/Windows/"
 
--- macOs Fbx Sdk Path; ex. Unknown
-kFbxSdkPathMacOs = "../External/FBX/macOS/"
+-- macOS Fbx Sdk Path; ex. Unknown
+kFbxSdkPathMacOS = "../External/FBX/macOS/"
 
 -- Build Test
 kBuildTests = false
@@ -212,7 +212,7 @@ end
 function makeCppFbxExporterProject(_name, _depend, _kind)
 
   winSdkPath = kFbxSdkPathWindows
-  macSdkPath = kFbxSdkPathMacOs
+  macSdkPath = kFbxSdkPathMacOS
 
   project (_name)
     uuid(os.uuid(_name))
@@ -358,7 +358,7 @@ function install(_type)
       os.copyfile("../../Build/Win64/SceneTrack.dll", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrack.dll")
     end
 
-  elseif _type == "macOs" then
+  elseif _type == "macOS" then
     if (os.isdir("../../../SceneTrack.Unity")) then
       printf("Installing Unity Plugin Base")
       os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/")
@@ -366,7 +366,7 @@ function install(_type)
 
       printf("Installing Mac Plugin to Unity Plugin")
       os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
-      os.outputof("cp -R ../../Build/MacOS/SceneTrack.bundle ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
+      os.outputof("cp -R ../../Build/macOS/SceneTrack.bundle ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
     end
   end
 
@@ -404,7 +404,7 @@ function installFbxSdk(_type, _isDebug)
       os.copyfile("../../Build/Win64/SceneTrackFbx.dll", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackFbx.dll")
     end
 
-  elseif _type == "macOs" then
+  elseif _type == "macOS" then
     if (os.isdir("../../../SceneTrack.Unity")) then
       printf("Installing Fbx Unity Plugin Base")
       os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/")
@@ -412,7 +412,7 @@ function installFbxSdk(_type, _isDebug)
 
       printf("Installing Fbx Mac Plugin to Unity Plugin")
       os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
-      os.outputof("cp -R ../../Build/MacOS/SceneTrackFbx.bundle ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
+      os.outputof("cp -R ../../Build/macOS/SceneTrackFbx.bundle ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
     end
   end
 end
@@ -447,7 +447,7 @@ function installMidiSdk(_type, _isDebug)
       os.copyfile("../../Build/Win64/SceneTrackMidi.dll", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackMidi.dll")
     end
 
-  elseif _type == "macOs" then
+  elseif _type == "macOS" then
     if (os.isdir("../../../SceneTrack.Unity")) then
       printf("Installing Midi Unity Plugin Base")
       os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/")
@@ -455,7 +455,7 @@ function installMidiSdk(_type, _isDebug)
 
       printf("Installing Midi Mac Plugin to Unity Plugin")
       os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
-      os.outputof("cp -R ../../Build/MacOS/SceneTrackMidi.bundle ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
+      os.outputof("cp -R ../../Build/macOS/SceneTrackMidi.bundle ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
     end
   end
 end
@@ -494,7 +494,7 @@ function installVideoSdk(_type, _isDebug)
       os.copyfile("../../Build/Win64/SceneTrackVideo.dll", "../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Windows/SceneTrackVideo.dll")
     end
 
-  elseif _type == "macOs" then
+  elseif _type == "macOS" then
     if (os.isdir("../../../SceneTrack.Unity")) then
       printf("Installing Video Unity Plugin Base")
       os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/")
@@ -502,7 +502,7 @@ function installVideoSdk(_type, _isDebug)
 
       printf("Installing Video Mac Plugin to Unity Plugin")
       os.outputof("mkdir -p ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
-      os.outputof("cp -R ../../Build/MacOS/SceneTrackVideo.bundle ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
+      os.outputof("cp -R ../../Build/macOS/SceneTrackVideo.bundle ../../../SceneTrack.Unity/Assets/Plugins/SceneTrack/Library/Mac")
     end
   end
 end
@@ -588,7 +588,7 @@ newaction {
   trigger = "install-osx",
   description = "Install the library into Integrations",
   execute = function()
-    install("macOs")
+    install("macOS")
   end
 }
 
@@ -626,9 +626,9 @@ newaction {
 
 newaction {
   trigger = "install-fbx-sdk-macos",
-  description = "Install the AutoDesk Fbx SDK library into the build folder for macOs",
+  description = "Install the AutoDesk Fbx SDK library into the build folder for macOS",
   execute = function()
-    installFbxSdk("macOs", false)
+    installFbxSdk("macOS", false)
   end
 }
 
@@ -667,9 +667,9 @@ newaction {
 
 newaction {
   trigger = "install-midi-sdk-macos",
-  description = "Install the Midi SDK library into the build folder for macOs",
+  description = "Install the Midi SDK library into the build folder for macOS",
   execute = function()
-    installMidiSdk("macOs", false)
+    installMidiSdk("macOS", false)
   end
 }
 
@@ -708,9 +708,9 @@ newaction {
 
 newaction {
   trigger = "install-video-sdk-macos",
-  description = "Install the Video SDK library into the build folder for macOs",
+  description = "Install the Video SDK library into the build folder for macOS",
   execute = function()
-    installVideoSdk("macOs", false)
+    installVideoSdk("macOS", false)
   end
 }
 
