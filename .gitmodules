@@ -1,0 +1,3 @@
+[submodule "Integrations/GCAP.Unity"]
+	path = Integrations/GCAP.Unity
+	url = https://github.com/EDFilms/GCAP.Unity
