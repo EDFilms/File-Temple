@@ -17,10 +17,6 @@
 #include "stWriter.h"
 #include "stReader.h"
 #include "stError.h"
-#include "stSecurity.h"
-
-#include <time.h>
-#define ST_SECURITY_CHECK  if ((u32) time(NULL) > ST_EXPIRES) return 0;
 
 typedef struct stEnginesT
 {
@@ -84,8 +80,6 @@ u32 stCreateRecording()
 {
   u32 id = 0;
   stContext* context = NULL;
-  
-  ST_SECURITY_CHECK;
 
   ST_LOCK(&sContextLock);
     
@@ -138,8 +132,6 @@ ST_PUBLIC u32 stOpenRecording(stCStr path)
 {
   u32 id = 0;
   stContext* context = NULL;
-  
-  ST_SECURITY_CHECK;
 
   ST_LOCK(&sContextLock);
 

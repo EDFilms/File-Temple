@@ -195,16 +195,16 @@ function makeStProject(_name, _kind)
 
               configuration  { "x32", "vs*" }
                 defines      { "WIN32" }
-                prebuildcommands          { "genie st-version-bump", "genie security" }
+                prebuildcommands          { "genie st-version-bump"}
                 postbuildcommands         { "genie install-win32" }
 
               configuration  { "x64", "vs*" }
                 defines      { "WIN32", "WIN64" }
-                prebuildcommands          { "genie st-version-bump", "genie security" }
+                prebuildcommands          { "genie st-version-bump" }
                 postbuildcommands         { "genie install-win64" }
 
               configuration  { "macosx" }
-                prebuildcommands          { "${SRCROOT}/genie st-version-bump", "${SRCROOT}/genie security" }
+                prebuildcommands          { "${SRCROOT}/genie st-version-bump"}
                 postbuildcommands         { "${SRCROOT}/genie install-osx" }
 
 end
@@ -540,7 +540,7 @@ function versionBump(version_h, name)
   f = io.open("../Source/" .. version_h, "r")
   local vers_data_str = f:read("*all")
   f:close()
-  
+
   local vstr = string.sub(vers_data_str, 3, string.find(vers_data_str, '\n'))
   local version_info = string.explode(vstr, ',')
 
