@@ -20,7 +20,7 @@
 #include "stTypes.h"
 #include "stProbe.h"
 #include "stBinary.h"
-#include <Source/Source/stStride.h>
+#include "stStride.h"
 
 #define ST_FIRST_AVAILABLE_OBJECT                   (UINT32_MAX) - 0x01
 #define ST_FIRST_AVAILABLE_OBJECT_BUT_DONT_AUTOLOAD (UINT32_MAX) - 0x02

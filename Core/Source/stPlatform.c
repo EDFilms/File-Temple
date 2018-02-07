@@ -16,9 +16,10 @@
 
 #include <stdlib.h>
 #include "stError.h"
-#include "nedmalloc.h"
+
 #if ST_CFG_USE_NEDMALLOC == 1
 
+#include "nedmalloc.h"
 
 #define ST_PLATFORM_MALLOC nedmalloc
 #define ST_PLATFORM_FREE   nedfree
