@@ -5,7 +5,7 @@ The Scenetrack FBX exporter is built with the **Autodesk® FBX® SDK 2017.1**
 
 It must be installed correctly for the Scenetrack FBX to compile correctly and to operate.
 
-The Autodesk FBX installer for Microsoft Windows and Apple macOs can be downloaded [from the Autodesk FBX website](http://usa.autodesk.com/adsk/servlet/pc/item?siteID=123112&id=26012646).
+The Autodesk FBX installer for Microsoft Windows and Apple macOS can be downloaded [from the Autodesk FBX website](http://usa.autodesk.com/adsk/servlet/pc/item?siteID=123112&id=26012646).
 
 Microsoft Windows
 --
@@ -31,14 +31,13 @@ Install the Autodesk FBX SDK to it's normal folder, with no reference or not int
 
 Next you need to copy the Autodesk FBX SDK libraries and headers folders into the ``External`` folder for the Scenetrack FBX exporter to compile.
 
-For the Scenetrack FBX to compile you need to copy the ``include`` folder and the correct `.a` file into the ``External\macOs\`` folders;
+For the Scenetrack FBX to compile you need to copy the ``include`` folder and the correct `.a` file into the ``External\FBX\macOS\`` folders;
 
-The ``include`` folder:-
+The ``include`` folder contents:-
 
-1. Copy ``/Applications/Autodesk/FBXSDK/2017.1/include`` to ``Scenetrack/Core/Source/External/FBX/macOs/include``
+1. Copy ``/Applications/Autodesk/FBXSDK/2017.1/include`` to ``Scenetrack/Core/Source/External/FBX/macOS/include``
 
 The ``.a`` file:-
 
-1. Make a folder called ``Scenetrack\Core\Source\External\FBX\Windows\lib\``
-2. Copy ``/Applications/Autodesk/FBDSDK/2017.1/lib/clang/release/libfbxsdk.a`` to ``Scenetrack/Core/Source/External/FBX/macOs/lib/``
-
+1. Make a folder called ``Scenetrack/Core/Source/External/FBX/macOS/lib/``
+2. Copy ``/Applications/Autodesk/FBDSDK/2017.1/lib/clang/release/libfbxsdk.a`` to ``Scenetrack/Core/Source/External/FBX/macOS/lib/``

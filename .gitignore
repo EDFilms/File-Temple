@@ -58,3 +58,8 @@ dkms.conf
 *.fbx
 *.txt
 .DS_Store
+Build/macOS/SceneTrack.bundle/Contents/MacOS/SceneTrack
+Build/macOS/SceneTrackFbx.bundle/Contents/MacOS/SceneTrackFbx
+Build/macOS/SceneTrackMidi.bundle/Contents/MacOS/SceneTrackMidi
+Build/macOS/SceneTrackVideo.bundle/Contents/MacOS/SceneTrackVideo
+Build/macOS/ToolApiBuilder
