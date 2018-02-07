@@ -1,0 +1,11 @@
+BuildTemp
+.vs
+obj
+
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+*.xcodeproj
+*.xcworkspace
