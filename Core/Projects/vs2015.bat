@@ -10,8 +10,9 @@ cd Build
 
 call "make_api_vs2015.bat"
 
+
 cd ..
-cd Source
+cd Core
 cd Projects
 
 msbuild SceneTrack.sln /t:SceneTrack /p:Configuration="Release" /p:Platform="x64" /p:BuildProjectReferences=false
