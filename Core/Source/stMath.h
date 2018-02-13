@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stMath.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Helper math and unique-id functions
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -15,6 +15,9 @@
 
 #include "stPlatform.h"
 
+/**
+ * Perform a ceiling division on two numbers
+ */
 ST_INLINE u32 ceilingDivision(u32 dividend, u32 divisor)
 {
   if (dividend == 0)
@@ -29,8 +32,16 @@ typedef struct
   u32 index, offset;
 } stQpr;
 
+/**
+ * Create a QPR struct for generating unique/random numbers.
+ * @see stQpr_Next
+ */
 void stQpr_Initialise(stQpr* qpr, u32 seedBase, u32 seedOffset);
 
+/**
+ * Get a unique/random number
+ * @return the unique/random number
+ */
 u32 stQpr_Next(stQpr* qpr);
 
 #endif
