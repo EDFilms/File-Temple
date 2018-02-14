@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stPlatform.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Configuration macros and common functions/macros, and Windows/macOS portable functions.
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -156,6 +156,13 @@
 #include <stdio.h>
 #include <string.h>
 
+/*
+  POD (Plain old data) types are in the format of:
+    u - unsigned integer
+    s - signed 
+    f - float
+  With the number of bits following the type.
+ */
 typedef uint8_t     u8;
 typedef uint16_t    u16;
 typedef uint32_t    u32;
@@ -189,6 +196,10 @@ typedef struct
   char c[4];
 } stFourCc;
 
+/**
+ * Make a FourCC (Four character code) from a string.
+ * Used for the SceneTrack (.st) file header and chunk headers.
+ */
 ST_INLINE void stMakeFourCc(stFourCc* cc, const char* x)
 {
   cc->c[0] = 0;
@@ -208,6 +219,9 @@ ST_INLINE void stMakeFourCc(stFourCc* cc, const char* x)
   }
 }
 
+/**
+ * Converts a FourCC into an 32-bit integer with respect to endianness
+ */
 ST_INLINE u32 stFourCcToUInt(stFourCc* cc)
 {
 #if ST_ENDIAN != ST_ENDIAN_LITTLE
@@ -217,6 +231,9 @@ ST_INLINE u32 stFourCcToUInt(stFourCc* cc)
 #endif
 }
 
+/**
+ * Print out a FourCC to stdout
+ */
 ST_INLINE void stPrintIntAsFourCc(int v)
 {
   char c[4];
@@ -235,6 +252,9 @@ ST_INLINE void stPrintIntAsFourCc(int v)
   
 }
 
+/**
+ * Print out a FourCC to a char array
+ */
 ST_INLINE void stSprintIntAsFourCC(int v, char c[4])
 {
 #if ST_ENDIAN != ST_ENDIAN_LITTLE
@@ -250,6 +270,10 @@ ST_INLINE void stSprintIntAsFourCC(int v, char c[4])
 #endif
 }
 
+/**
+ * Portable version of fseek for 64-bit file addressing (> 4GB).
+ * All file code should use this version instead of the native platform version; fseek.
+ */
 ST_INLINE int stFseek64(FILE* stream, s64 pos, int origin)
 {
 #if ST_PLATFORM == ST_PLATFORM_WINDOWS
@@ -259,6 +283,10 @@ ST_INLINE int stFseek64(FILE* stream, s64 pos, int origin)
 #endif
 }
 
+/**
+ * Portable version of ftell for 64-bit file addressing (> 4GB)
+ * All file code should use this version instead of the native platform version; ftell.
+ */
 ST_INLINE s64 stFtell64(FILE* stream)
 {
 #if ST_PLATFORM == ST_PLATFORM_WINDOWS
@@ -268,7 +296,14 @@ ST_INLINE s64 stFtell64(FILE* stream)
 #endif
 }
 
+/**
+ * Macro for the minimum of two values
+ */
 #define stMin(X, Y) ((X) < (Y) ? (X) : (Y))
+
+/**
+ * Macro for the maximum of two values
+ */
 #define stMax(X, Y) ((X) > (Y) ? (X) : (Y))
 
 #ifndef true
@@ -283,14 +318,40 @@ ST_INLINE s64 stFtell64(FILE* stream)
   #define NULL 0
 #endif
 
+
+/**
+ * Assert/Warning Macros
+ *
+ * Assert macros provide a portable and configurable way of asserting or warning the user/programmer
+ * for any conflicts or incorrect parameters in code.
+ */
 #define ST_NOOP               ;
+
+/**
+ * Macro for a compile time based assertion
+ */
 #define ST_STATIC_ASSERT(COND, TOKEN) typedef int TOKEN[COND ? 1 : -1]
+
+/**
+ * Macro to issue a warning to stdout when a condition is met.
+ */
 #define ST_WARNING(TRUE_COND, FMT, ...) do { if (TRUE_COND) { printf(FMT "\n", __VA_ARGS__); } } while(0)
+
+/**
+ * Macro to issue always a warning when a condition is met.
+ */
 #define ST_ALWAYS_WARNING(FMT, ...) do { printf(FMT "\n", __VA_ARGS__); } while(0)
 
 extern FILE* sOut;
 
+/**
+ * Macro to log a formatted string to the log file
+ */
 #define ST_LOG(TYPE, FMT, ...)  do { if (sOut != NULL) { fprintf(sOut, "[ST] " TYPE " " FMT "\n", __VA_ARGS__); fflush(sOut);  } } while(0)
+
+/**
+ * Macro to log a string to the log file
+ */
 #define ST_LOG2(TYPE, TXT)      do { if (sOut != NULL) { fprintf(sOut, "[ST] " TYPE " " TXT "\n"); fflush(sOut);  } } while(0)
 
 
@@ -300,7 +361,9 @@ extern FILE* sOut;
 #define ST_LOG_LEVEL 1
 #endif
 
-// Really Chatter
+/**
+ * Macros to extensive debug information to the log
+ */
 #if ST_LOG_LEVEL >= 4
 #define ST_PRINT_REALLY_CHATTERF(FMT, ...)    ST_LOG("...", FMT, __VA_ARGS__)
 #define ST_PRINT_REALLY_CHATTER(FMT)          ST_LOG2("...", FMT)
@@ -309,7 +372,9 @@ extern FILE* sOut;
 #define ST_PRINT_REALLY_CHATTER(FMT)
 #endif
 
-// Chatter
+/**
+ * Macros to debug information to the log
+ */
 #if ST_LOG_LEVEL >= 3
 #define ST_PRINT_CHATTERF(FMT, ...)            ST_LOG("...", FMT, __VA_ARGS__)
 #define ST_PRINT_CHATTER(FMT)                  ST_LOG2("...", FMT)
@@ -318,7 +383,9 @@ extern FILE* sOut;
 #define ST_PRINT_CHATTER(FMT)
 #endif
 
-// Warnings
+/**
+ * Macros to warning information to the log
+ */
 #if ST_LOG_LEVEL >= 2
 #define ST_PRINT_WARNF(FMT, ...)               ST_LOG("WAR", FMT, __VA_ARGS__)
 #define ST_PRINT_WARN(FMT)                     ST_LOG2("WAR", FMT)
@@ -327,7 +394,9 @@ extern FILE* sOut;
 #define ST_PRINT_WARN(FMT)
 #endif
 
-// Errors
+/**
+ * Macros to error information to the log
+ */
 #if ST_LOG_LEVEL >= 1
 #define ST_PRINT_ERRORF(FMT, ...)               ST_LOG("ERR", FMT, __VA_ARGS__)
 #define ST_PRINT_ERROR(FMT)                     ST_LOG2("ERR", FMT)
@@ -336,7 +405,9 @@ extern FILE* sOut;
 #define ST_PRINT_ERROR(FMT)
 #endif
 
-// Info
+/**
+ * Macros to user information to the log
+ */
 #if ST_LOG_LEVEL >= 0
 #define ST_PRINT_INFOF(FMT, ...)               ST_LOG("   ", FMT, __VA_ARGS__)
 #define ST_PRINT_INFO(FMT)                     ST_LOG2("   ", FMT)
@@ -348,19 +419,63 @@ extern FILE* sOut;
 #define ST_DBG_FN "[" __FUNCTION__ "] "
 
 
-
+/**
+ * Macro to assert when a pointer type is NULL
+ */
 #define ST_NULL_CHECK(X)       do { if ((X) == NULL) { ST_ALWAYS_ASSERT("Pointer Is Null"); } } while(0)
+
+/**
+ * Portable Macro to assert and write to the log when a condition is NOT met.
+ * Please use this macro instead of assert due to portability reasons.
+ */
 #define ST_ASSERT(X, TEXT)     do { if (!(X)) { ST_LOG("!!!", "Assertion!\n\n%s\n%s:%i", TEXT, __FILE__, __LINE__); } assert(X); } while(0)
+
+/**
+ * Portable Macro to assert and write to the log.
+ * Please use this macro instead of assert(false) due to portability reasons.
+ */
 #define ST_ALWAYS_ASSERT(TEXT) do { ST_LOG("!!!", "Assertion!\n\n%s\n%s:%i", TEXT, __FILE__, __LINE__); assert(0); } while(0)
 
+
+/**
+ * Macro to convert units into bytes
+ */
 #define ST_BYTES(X)           (X)
+
+/**
+ * Macro to bytes into kilobytes
+ */
 #define ST_KILOBYTES(X)       ((X) * 1024)
+
+/**
+ * Macro to kilobytes into megabytes
+ */
 #define ST_MEGABYTES(X)       ((ST_KILOBYTES(X)) * 1024)
+
+/**
+ * Macro to count the number of items in the array at compile time
+ */
 #define ST_ARRAY_COUNT(X)     (sizeof(X) / sizeof((X)[0]))
 #define STR_XSTR(X) #X
+
+/**
+ * Macro to stringify a token
+ */
 #define STR_STR(X) ST_XSTR(X)
+
+/**
+ * Macro to set the power of 2 flag bit of flags.
+ */
 #define ST_SET_FLAG(FLAGS, FLAG)    do { (FLAGS) |= (FLAG); } while(0)
+
+/**
+ * Macro to clear the power of 2 flag bit of flags.
+ */
 #define ST_CLEAR_FLAG(FLAGS, FLAG)  do { (FLAGS) &= ~(FLAG); } while(0)
+
+/**
+ * Macro to check the power of 2 flag bit of flags.
+ */
 #define ST_HAS_FLAG(FLAGS, FLAG)    ( ((FLAGS) & (FLAG)) != 0 )
 
 #ifndef ST_CFG_INTERNAL_TESTS
@@ -383,34 +498,94 @@ extern FILE* sOut;
 #define ST_PUBLIC_PROBE
 #endif
 
-
+/**
+ * Memory allocation
+ *
+ * These are a collection of portable and threadsafe macros to obtain, reallocate and release memory.
+ * Based on configuration these macros can be switched to extensive logging to track memory leaks or heavy usage.
+ * Please do not use malloc, free or realloc but use these portable macros instead.
+ * @see ST_CFG_TRACK_MEMORY
+ */
 #if ST_CFG_TRACK_MEMORY == 0
+
+/**
+ * Allocate some memory from the heap
+ * @threadsafe
+ */
 void* stAllocateMemoryFromHeapImpl(size_t nbBytes, size_t alignment);
 #define ST_ALLOCATE_MEM(NB_BYTES, ALIGNMENT)  stAllocateMemoryFromHeapImpl(NB_BYTES, ALIGNMENT)
 void* stReallocateMemoryFromHeapImpl(void* mem, size_t size);
+
+/**
+ * Reallocate (grow or shrink) from existing allocated memory from the heap
+ * @threadsafe
+ */
 #define ST_REALLOCATE_MEM(MEM, NB_BYTES)  stReallocateMemoryFromHeapImpl(MEM, NB_BYTES)
 #define ST_REALLOCATE_MEM_REF(MEM, NB_BYTES, REF)  stReallocateMemoryFromHeapImpl(MEM, NB_BYTES)
 #else
+
+/**
+ * Allocate some memory from the heap (with debugging information)
+ * @threadsafe
+ */
 void* stAllocateMemoryFromHeapImpl(size_t nbBytes, size_t alignment, const char* file, int line, int ref);
 #define ST_ALLOCATE_MEM(NB_BYTES, ALIGNMENT)  stAllocateMemoryFromHeapImpl(NB_BYTES, ALIGNMENT, __FILE__, __LINE__, 0)
 #define ST_ALLOCATE_MEM_REF(NB_BYTES, ALIGNMENT, REF)  stAllocateMemoryFromHeapImpl(NB_BYTES, ALIGNMENT, __FILE__, __LINE__, REF)
+
+/**
+ * Reallocate (grow or shrink) from existing allocated memory from the heap (with debugging information)
+ * @threadsafe
+ */
 void* stReallocateMemoryFromHeapImpl(void* mem, size_t size, const char* file, int line, int ref);
 #define ST_REALLOCATE_MEM(MEM, NB_BYTES)  stReallocateMemoryFromHeapImpl(MEM, NB_BYTES, __FILE__, __LINE__, 0)
 #define ST_REALLOCATE_MEM_REF(MEM, NB_BYTES, REF)  stReallocateMemoryFromHeapImpl(MEM, NB_BYTES, __FILE__, __LINE__, REF)
 #endif
 
+/**
+ * Release allocated memory from the heap.
+ * @threadsafe
+ */
 void  stReleaseMemoryFromHeapImpl(void* memory);
 #define ST_RELEASE_MEM(MEM) stReleaseMemoryFromHeapImpl(MEM)
 
+/**
+ * Initialies the memory mutex and memory tracking (if enabled)
+ */
 void  stInitialiseHeapMemory();
+
+/**
+ * Releases the memory mutex and memory tracking (if enabled)
+ * Does not free any other allocated memory!
+ */
 void  stShutdownHeapMemory();
 
+/**
+ * Helper macro to allocate type of variable from the heap with default memory alignment.
+ * Similar to C++ new
+ */
 #define ST_NEW_FROM_HEAP(TYPE)          ST_ALLOCATE_MEM(sizeof(TYPE), ST_DEFAULT_ALIGNMENT)
+
+/**
+ * Helper macro to release a variable that was allocated from the heap.
+ * Similar to C++ delete
+ */
 #define ST_DELETE_FROM_HEAP(MEM)        ST_RELEASE_MEM(MEM)
+
+/**
+ * Helper macro to adjust the size of allocated memory from the heap
+ */
 #define ST_REALLOC_FROM_HEAP(MEM, SIZE) ST_REALLOCATE_MEM(MEM, SIZE)
 
-
+/**
+ * Portable macro for opening a file.
+ * All file code should use this version instead of the native platform version; fopen.
+ */
 #define ST_FOPEN(FD, P, A)  do { FD = fopen(P, A); ST_LOG("FILE", "Opened File %s as %s, FileDesc=%p", P, A, FD); } while(0)
+
+/**
+ * Portable macro for closing a file.
+ * All file code should use this version instead of the native platform version; fclose.
+ */
 #define ST_FCLOSE(FD)  do { int _r = fclose(FD); ST_LOG("FILE", "Closed FileDesc=%p, Result = %i", FD, _r); } while(0) 
- 
+
 #endif

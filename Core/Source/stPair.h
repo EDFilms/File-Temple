@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stPair.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Pair and Triple macros and classes. (UNUSED)
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

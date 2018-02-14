@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stObjectHeader.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Manages memory and classes for Object's meta/"hot" data during a frame.
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -20,6 +20,9 @@
 struct stDeltaKeyValueT;
 typedef struct stDeltaKeyValueT stDeltaKeyValue;
 
+/**
+ * Represents a command/event/change of an object for a frame.
+ */
 struct stDeltaKeyValueT
 {
   stCommandKey              key;
@@ -29,6 +32,9 @@ struct stDeltaKeyValueT
 
 void stDeltaKeyValuePrint_Impl(stDeltaKeyValue* value, const char* comment);
 
+/**
+ * Represents the complete change of an object for a frame.
+ */
 struct stObjectHeaderT
 {
   struct stObjectHeaderT *next, *prev;
@@ -47,6 +53,10 @@ struct stObjectHeaderT
   stBool32                bUpdated : 1;
 };
 
+/**
+ * Converts a u8 flags bitmask into the appropriate flags in a stObjectHeader
+ * @see stSaveObjectFlags
+ */
 ST_INLINE void stLoadObjectFlags(u8 flags, struct stObjectHeaderT* object)
 {
   object->bCreated = ((flags & (1 << 0)) != 0);
@@ -54,6 +64,10 @@ ST_INLINE void stLoadObjectFlags(u8 flags, struct stObjectHeaderT* object)
   object->bUpdated = ((flags & (1 << 2)) != 0);
 }
 
+/**
+ * Converts a stObject boolean state into u8 flags bitmask for serialisation
+ * @see stLoadObjectFlags
+ */
 ST_INLINE u8 stSaveObjectFlags(struct stObjectHeaderT* object)
 {
   u8 flags = 0;
@@ -68,6 +82,9 @@ ST_INLINE u8 stSaveObjectFlags(struct stObjectHeaderT* object)
 
 typedef struct stObjectHeaderT stObjectHeader;
 
+/**
+ * Management/Container class for stObjectHeaderT
+ */
 struct stObjectHeadersT
 {
   stObjectHeader           *first,   *last;
@@ -78,6 +95,9 @@ struct stObjectHeadersT
 
 typedef struct stObjectHeadersT stObjectHeaders;
 
+/**
+ * Debug function print contents of stObjectHeaders to stdout
+ */
 void stObjectHeaderPrint_Impl(stObjectHeader* objectHeader, const char* comment);
 
 #endif
