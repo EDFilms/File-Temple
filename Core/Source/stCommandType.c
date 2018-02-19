@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stCommandType.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Type and Command Format for recordable commands
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

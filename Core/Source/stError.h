@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stError.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Error Handler
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -43,19 +43,41 @@ ST_PUBLIC_ENUM(Named="Reserve",   Value=128, For="Error", Text="Object and Frame
 ST_PUBLIC_ENUM(Named="Iterator",   Value=256, For="Error", Text="Iterators")
 #define ST_ERROR_ITERATOR    256
 
+/**
+ * Get an error or return 0
+ * @public
+ */
 ST_PUBLIC_FUNCTION(Named="stGetError", Text="Get an error or return 0.", ThreadSafe, Category="Recording")
 ST_PUBLIC u32 stGetError();
 
+/**
+ * Peek if there is an error but do not clear it
+ */
 u32 stPeekError();
 
+/**
+ * Raise an error
+ */
 void stRaiseError(u32 error);
 
+/**
+ * Is there an error?
+ */
 stBool stHasError(u32 error);
 
+/**
+ * Clear errors
+ */
 void stClearErrors();
 
+/**
+ * Return the errors and set the errors to 0.
+ */
 u32 stPopError();
 
+/**
+ * Set the errors to given
+ */
 void stPushError(u32 errorCodes);
 
 

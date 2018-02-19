@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stAscii.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Scenetrack ASCII-format writer functions
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -17,6 +17,9 @@
 #include "stBinary.h"
 #include <inttypes.h>
 
+/**
+ * Write in the given endian an uint8 to given SceneTrack ASCII file
+ */
 ST_INLINE int stASCIIEndianFileWriteU8Ex(FILE* file, u8 value, stEnum32 src, stEnum32 dst)
 {
   ST_UNUSED(src);
@@ -24,6 +27,9 @@ ST_INLINE int stASCIIEndianFileWriteU8Ex(FILE* file, u8 value, stEnum32 src, stE
   return fprintf(file, "%" PRIu8, value);
 }
 
+/**
+ * Write in the given endian an int8 to given SceneTrack ASCII file
+ */
 ST_INLINE int stASCIIEndianFileWriteS8Ex(FILE* file, s8 value, stEnum32 src, stEnum32 dst)
 {
   ST_UNUSED(src);
@@ -31,6 +37,9 @@ ST_INLINE int stASCIIEndianFileWriteS8Ex(FILE* file, s8 value, stEnum32 src, stE
   return fprintf(file, "%" PRIi8, value);
 }
 
+/**
+ * Write in the given endian an uint16 to given SceneTrack ASCII file
+ */
 ST_INLINE int stASCIIEndianFileWriteU16Ex(FILE* file, u16 value, stEnum32 src, stEnum32 dst)
 {
   stU16Bytes b;
@@ -43,6 +52,9 @@ ST_INLINE int stASCIIEndianFileWriteU16Ex(FILE* file, u16 value, stEnum32 src, s
   return fprintf(file, "%" PRIu16, b.value);
 }
 
+/**
+ * Write in the given endian an int16 to given SceneTrack ASCII file
+ */
 ST_INLINE int stASCIIEndianFileWriteS16Ex(FILE* file, s16 value, stEnum32 src, stEnum32 dst)
 {
   stU16Bytes b;
@@ -55,6 +67,9 @@ ST_INLINE int stASCIIEndianFileWriteS16Ex(FILE* file, s16 value, stEnum32 src, s
   return fprintf(file, "%" PRIi16, b.value);
 }
 
+/**
+ * Write in the given endian an uint32 to given SceneTrack ASCII file
+ */
 ST_INLINE int  stASCIIEndianFileWriteU32Ex(FILE* file, u32 value, stEnum32 src, stEnum32 dst)
 {
   stU32Bytes b;
@@ -67,6 +82,9 @@ ST_INLINE int  stASCIIEndianFileWriteU32Ex(FILE* file, u32 value, stEnum32 src, 
   return fprintf(file, "%" PRIu32, b.value);
 }
 
+/**
+ * Write in the given endian an int32 to given SceneTrack ASCII file
+ */
 ST_INLINE int stASCIIEndianFileWriteS32Ex(FILE* file, s32 value, stEnum32 src, stEnum32 dst)
 {
   stS32Bytes b;
@@ -79,7 +97,9 @@ ST_INLINE int stASCIIEndianFileWriteS32Ex(FILE* file, s32 value, stEnum32 src, s
   return fprintf(file, "%" PRIi32, b.value);
 }
 
-
+/**
+ * Write in the given endian an uint64 to given SceneTrack ASCII file
+ */
 ST_INLINE int  stASCIIEndianFileWriteU64Ex(FILE* file, u64 value, stEnum32 src, stEnum32 dst)
 {
   stU64Bytes b;
@@ -92,7 +112,9 @@ ST_INLINE int  stASCIIEndianFileWriteU64Ex(FILE* file, u64 value, stEnum32 src, 
   return fprintf(file, "%" PRIu64, b.value);
 }
 
-
+/**
+ * Write in the given endian an int64 to given SceneTrack ASCII file
+ */
 ST_INLINE int stASCIIEndianFileWriteS64Ex(FILE* file, s64 value, stEnum32 src, stEnum32 dst)
 {
   stS64Bytes b;
@@ -105,6 +127,9 @@ ST_INLINE int stASCIIEndianFileWriteS64Ex(FILE* file, s64 value, stEnum32 src, s
   return fprintf(file, "%" PRIi64, b.value);
 }
 
+/**
+ * Write in the given endian an uint64 (as hexadecimal) to given SceneTrack ASCII file
+ */
 ST_INLINE int stASCIIEndianFileWriteHexU64Ex(FILE* file, u64 value, stEnum32 src, stEnum32 dst)
 {
   stU64Bytes b;
@@ -117,7 +142,9 @@ ST_INLINE int stASCIIEndianFileWriteHexU64Ex(FILE* file, u64 value, stEnum32 src
   return fprintf(file, "%" PRIX64, b.value);
 }
 
-
+/**
+ * Write in the given endian an int64 (as hexadecimal) to given SceneTrack ASCII file
+ */
 ST_INLINE int stASCIIEndianFileWriteHexS64Ex(FILE* file, s64 value, stEnum32 src, stEnum32 dst)
 {
   stS64Bytes b;

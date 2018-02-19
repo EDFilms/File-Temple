@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stDataFrame.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Frame object-component data creation, management and processing
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

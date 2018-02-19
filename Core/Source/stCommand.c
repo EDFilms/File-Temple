@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stCommand.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Recorded Object and Variable commands creation, management
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

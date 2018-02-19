@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stAscii.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * 
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

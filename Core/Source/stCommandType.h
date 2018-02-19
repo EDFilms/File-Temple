@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stCommandType.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Type and Command Format for recordable commands
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -15,18 +15,48 @@
 
 #include "stPlatform.h"
 
+/**
+ * Constant for the number of commands per frame
+ */
 #define ST_COMMAND_MAX_PER_FRAME              ((1 << 16))
+
+/**
+ * Constant for the maximum data size per frame (UNUSED)
+ */
 #define ST_COMMAND_DATA_SIZE                  KILOBYTES(512)
+
+/**
+ * Constant for the pool size per frame (UNUSED)
+ */
 #define ST_COMMAND_POOL_SIZE                  4
+
+/**
+ * Constant for the command maximum size (UNUSED)
+ */
 #define ST_COMMAND_MAX_SIZE                   (256 * 4)
+
+/**
+ * Submission Command buffer Id
+ */
 #define ST_COMMAND_BUFFER_INDEX_SUBMISSION    0
+
+/**
+ * Processing Command buffer Id
+ */
 #define ST_COMMAND_BUFFER_INDEX_PROCESSING    1
+
+/**
+ * Number of command buffers
+ */
 #define ST_COMMAND_BUFFER_COUNT               2
 
 typedef u16 stCommandBufferIndex;
 
 typedef u64 stCommandKey;
 
+/**
+ * Type of commands (and format) of recordable commands per object per component per frame.
+ */
 typedef enum
 {
   ST_CMD_NONE,
@@ -99,17 +129,28 @@ typedef enum
 
 ST_STATIC_ASSERT(ST_CMD_COUNT < 256, EnsureNotToManyCommands);
 
+/**
+ * A lookup table for each stCommandType size on disk
+ */
 extern const u8 stCommandCountDiskSize[ST_CMD_COUNT];
 
+/**
+ * Get a string of the stCommandType enum
+ */
 const char* stCommandTypeToString(stCommandType type);
 
+/**
+ * The data format of a stCommandType
+ */
 struct stCommandValueType
 {
   u8 nbElements;
   u8 type;
 };
 
-
+/**
+ * A lookup table of the data formats for each stCommandType
+ */
 extern const struct stCommandValueType stCommandValueTypes[ST_CMD_COUNT];
 
 #endif

@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stCookie.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Id number generator based of a random number generator
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
