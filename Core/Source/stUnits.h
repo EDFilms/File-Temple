@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stUnits.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Specified Units for any component values
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
