@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stVector.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * C++ style std::vector using macros (UNUSED)
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

@@ -1,10 +1,10 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stIterator.c
  *
- * [[[BREIF DESCRIPTION]]]
- * 
+ * Public interface to interate over the saved SceneTrack data for reading or exporting into a different format
+ *
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
  * @since	  1.0.0

@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stRecording.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Recording context classes and functions 
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -38,6 +38,15 @@ struct stContextRecordingMem
   stTempCommandBuffer         tempBuffer;
 };
 
+/**
+ * Main context class for SceneTrack.
+ * This represents a single recording either recording live, or from a saved file
+ * @see stCreateRecording
+ * @see stCloseRecording
+ * @see stOpenRecording
+ * @see stGetContext
+ * @see stGetContext_NoMutex
+ */
 ST_PRIVATE_STRUCT(Named="stContext")
 struct stContextT
 {
@@ -60,21 +69,41 @@ struct stContextT
 
 typedef struct stContextT stContext;
 
+/**
+ * Create Recording for writing
+ * @threadsafe
+ */
 ST_PUBLIC_FUNCTION(Named="stCreateRecording", Text="Create Recording for writing", Category="Recording", ThreadSafe)
 ST_PUBLIC u32  stCreateRecording();
 
+/**
+ * Open Recording for reading
+ * @threadsafe
+ */
 ST_PUBLIC_FUNCTION(Named="stOpenRecording", Text="Open Recording for reading", Category="Recording", ThreadSafe)
 ST_PUBLIC u32  stOpenRecording(stCStr path);
 
+/**
+ * Shutdown Recording
+ * @threadsafe
+ */
 ST_PUBLIC_FUNCTION(Named="stCloseRecording", Text="Shutdown Recording", Category="Recording", ThreadSafe)
 ST_PUBLIC void stCloseRecording(u32 recording);
 
 ST_PUBLIC_FUNCTION(Named="stChangeRecording", Text="Change Recording", Category="Recording", ThreadSafe)
 ST_PUBLIC void stChangeActiveRecording(u32 recording);
 
+/**
+ * Append recording to anothe recording
+ * @threadsafe
+ */
 ST_PUBLIC_FUNCTION(Named="stAppendSaveRecording", Text="Save Recording", Category="Recording", ThreadSafe)
 ST_PUBLIC void stAppendSaveRecording(stCStr path, stEnum32 format, u32 frames);
 
+/**
+ * Save recording to file
+ * @threadsafe
+ */
 ST_PUBLIC_FUNCTION(Named="stSaveRecording", Text="Save Recording", Category="Recording", ThreadSafe)
 ST_PUBLIC void stSaveRecording(stCStr path, stEnum32 format);
 
@@ -83,16 +112,32 @@ ST_PUBLIC_ENUM(Named="FramePool", Value=0, For="Memory")
 ST_PUBLIC_ENUM(Named="FramePage", Value=0, For="Memory")
 #define ST_MEMORY_FRAME_PAGE 1
 
+/**
+ * Reserve Memory, Pages or Frames to help with performance.
+ * @threadsafe
+ */
 ST_PUBLIC_FUNCTION(Named="stMemoryReserve", Text="Reserve Memory, Pages or Frames to help with performance.", ThreadSafe, Category="Recording")
 ST_PUBLIC void stMemoryReserve(s32 type, s32 value);
 
+/**
+ * Get pointer to the active context without using the mutex
+ */
 stContext* stGetContext_NoMutex();
 
+/**
+ * Is there an active context?
+ */
 stBool     stHasContext_NoMutex();
 
+/**
+ * Obtain Current Recording and Spinlock
+ */
 //ST_PRIVATE_FUNCTION(Named="stGetContext", Text="Obtain Current Recording and Spinlock", ThreadSafe)
 stContext* stObtainContextLock();
 
+/**
+ * Release Current Recording and Spinlock
+ */
 //ST_PRIVATE_FUNCTION(Named="stGetContext", Text="Release Current Recording and Spinlock", ThreadSafe)
 void stReleaseContextLock(stContext* context);
 

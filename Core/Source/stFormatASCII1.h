@@ -2,9 +2,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stFormatASCII1.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Formatter interface for the SceneTrack ASCII-1 Format
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

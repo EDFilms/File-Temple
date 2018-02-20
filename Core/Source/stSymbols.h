@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stSymbols.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Automatic compiler constants
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

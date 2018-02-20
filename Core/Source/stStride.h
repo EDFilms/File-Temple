@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stStride.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Stride memory copy functions
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -13,6 +13,10 @@
 #ifndef ST_STRIDE_H
 #define ST_STRIDE_H
 
+/**
+ * Perform a memory copy from source part of memory to destination memory where the
+   either memory (or both) is not exactly linear, or part of the memory is needed to be copied.
+ */
 ST_INLINE u8* stStrideMemCpy(u8* dst, u8* src, u32 dstStride, u32 srcStride, u32 count)
 {
   if (dstStride != srcStride)
@@ -36,8 +40,9 @@ ST_INLINE u8* stStrideMemCpy(u8* dst, u8* src, u32 dstStride, u32 srcStride, u32
   }
 }
 
-// Stride/vector version of memory copy. With < 4 elements as unrolled loops.
-
+/**
+ * Stride/vector version of memory copy. With < 4 elements as unrolled loops.
+ */
 #define ST_STRIDE_MEMCOPY(T, SRC, DST, NB_ELEMENTS, ARRAY_SIZE, STRIDE) \
     do { \
       T* _dst = DST; T* _src = SRC; \

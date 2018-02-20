@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stHeaderFrame.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * "Hot"/Common data for each recorded frame which may be in a partial or fully loaded state in memory.
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

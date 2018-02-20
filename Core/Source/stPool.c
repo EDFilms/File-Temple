@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stPool.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Memory pool allocator classes and functions
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

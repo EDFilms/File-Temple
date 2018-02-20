@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stProbe.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Textual debug functions and utilities for printf/stdout
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

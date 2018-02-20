@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stFormatBinary1.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Formatter interface for the SceneTrack Binary-1 Format
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

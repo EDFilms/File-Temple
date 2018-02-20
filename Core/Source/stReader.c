@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stReader.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * High-level SceneTrack file reader classes and functions
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

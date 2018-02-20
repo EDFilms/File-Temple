@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stFrameBuffer.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Container classes for storing and processing commands for the currently submitted frame
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

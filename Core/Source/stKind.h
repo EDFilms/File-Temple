@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stKind.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Associated kinds of information storable in SceneTrack
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

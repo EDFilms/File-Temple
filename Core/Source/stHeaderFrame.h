@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stHeaderFrame.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * "Hot"/Common data for each recorded frame which may be in a partial or fully loaded state in memory.
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -24,6 +24,10 @@ struct stContextT;
 
 typedef struct stBitSetT stIdMap;
 
+/**
+ * Frame Header class which represents meta-data and holds and references the "colder" frame data
+ * stFrameData data.
+ */
 struct stHeaderFrameT
 {
   struct stHeaderFrameT *next, *prev;
@@ -52,6 +56,9 @@ struct stHeaderFrameT
 
 typedef struct stHeaderFrameT stHeaderFrame;
 
+/**
+ * Container class and id information for stHeaderFrames
+ */
 struct stHeaderFramesT
 {
   stHeaderFrame            *first, *last;
@@ -63,6 +70,9 @@ struct stHeaderFramesT
 
 typedef struct stHeaderFramesT stHeaderFrames;
 
+/**
+ * Convert stHeaderFrame flags in a u8 as bit flags
+ */
 ST_INLINE u8 stSaveHeaderFrameFlags(stHeaderFrame* headerFrame)
 {
   u8 flags = 0;
@@ -71,39 +81,91 @@ ST_INLINE u8 stSaveHeaderFrameFlags(stHeaderFrame* headerFrame)
   return flags;
 }
 
+/**
+ * Convert u8 bit flags into stHeaderFrame flags
+ */
 ST_INLINE void stLoadHeaderFrameFlags(u8 flags, stHeaderFrame* headerFrame)
 {
   headerFrame->bPersistant = ((flags & (1 << 0)) != 0);
 }
 
+/**
+ * Create and allocate memory for a new header frame
+ * @return The new stHeaderFrame or NULL if there is a raised error or the linear allocator has run out of memory
+ */
 struct stHeaderFrameT* stNewHeaderFrame(struct stHeaderFramesT* headerFrames);
 
+/**
+ * Create and allocate memory for a new header frame, with a specific id.
+ * @return The new stHeaderFrame or NULL if there is a raised error or the linear allocator has run out of memory
+ */
 struct stHeaderFrameT* stNewHeaderFrameWithId(struct stHeaderFramesT* headerFrames, u32 id);
 
+/**
+ * Mark a header frame as deleted (but does not release any memory)
+ */
 void stDeleteHeaderFrame(struct stHeaderFrameT* header, struct stHeaderFramesT* headerFrames);
 
+/**
+ * Find a frame by it's sequence number (frame number) or return NULL
+ * @return The header frame or NULL
+ */
 struct stHeaderFrameT* stFindHeaderFrameBySeqNum(struct stHeaderFramesT* headerFrames, u32 seqNum);
 
+/**
+ * Find a frame by it's sequence number (frame number) or the nearest frame to it
+ * @return The header frame or a header frame near to it
+ */
 struct stHeaderFrameT* stFindHeaderFrameBySeqNumOrNearest(struct stHeaderFramesT* headerFrames, u32 seqNum);
 
+/**
+ * Initialise header frames class and preallocate memory
+ */
 void stInitialiseHeaderFrames(struct stHeaderFramesT* headerFrames);
 
+/**
+ * Release header frames class and release memory
+ */
 void stShutdownHeaderFrames(struct stHeaderFramesT* headerFrames);
 
+/**
+ * Create a stHeaderFrame and load it in from the currently opened file and position
+ */
 stBool stLoadFrame_Internal(struct stContextT* context, struct stHeaderFrameT* headerFrame);
 
+/**
+ * Unload the frame, and recycle the memory into the internal header frame pool
+ */
 void stUnloadFrame(struct stFrameDatasT* frames, struct stHeaderFrameT* headerFrame);
 
+/**
+ * Call stLoadFrame_Internal without using the shared mutex
+ */
 stBool stLoadFrame_NoMutex(struct stHeaderFrameT* headerFrame);
 
+/**
+ * Call stUnloadFrame without using the shared mutex
+ */
 stBool stUnloadFrame_NoMutex(struct stHeaderFrameT* headerFrame);
 
+/**
+ * Print out to stdout the header frame as debug information
+ */
 void stHeaderFramePrint_Impl(struct stHeaderFrameT* headerFrame, const char* comment);
 
+/**
+ * Does the header frame no changes?
+ */
 stBool stHeaderFrameIsEmpty(struct stHeaderFrameT* headerFrame);
 
+/**
+ * Does the header frame exactly one change?
+ */
 stBool stHeaderFrameIsOne(struct stHeaderFrameT* headerFrame);
 
+/**
+ * Does the header frame has more than one change?
+ */
 stBool stHeaderFrameIsMany(struct stHeaderFrameT* headerFrame);
 
 #endif

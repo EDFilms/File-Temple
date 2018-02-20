@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stMath.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Helper math and unique-id functions
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stLinearAllocator.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Stack-like memory pool functions and objects
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stTypes.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Portable way of expressing standard C compatible plain old data types
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

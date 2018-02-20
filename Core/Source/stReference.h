@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stReference.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Reference enums in relation to other values, or to euclidean space
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stFormat.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Macro constants for the SceneTrack file header magic constants
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

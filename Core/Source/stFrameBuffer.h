@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stFrameBuffer.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Container classes for storing and processing commands for the currently submitted frame
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -20,6 +20,10 @@
 
 struct stContextT;
 
+/**
+ * Command Buffer class to hold all submitted commands for the current frame
+ * as well as frame information (time, index, etc.)
+ */
 typedef struct stCommandBufferT
 {
   // Number of commands
@@ -48,12 +52,21 @@ typedef struct stCommandBufferT
 
 } stCommandBuffer;
 
+/**
+ * Initialise and reserve memory for a stCommandBuffer
+ */
 void stInitialiseCommandBuffer(stCommandBuffer* buffer);
 
+/**
+ * Shutdown and free memory for a stCommandBuffer
+ */
 void stShutdownCommandBuffer(stCommandBuffer* buffer);
 
 void stSortCommands(stCommandBuffer* buffer);
 
+/**
+ * Swap both stCommandBuffers 0 and 1 around, and reset stCommandBuffer 0 for frame submission.
+ */
 void stCycleBuffers(struct stContextT* context);
 
 #endif

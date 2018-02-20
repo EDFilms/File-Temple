@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stReaderDelta.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * High level file reading for the SceneTrack delta file formats
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

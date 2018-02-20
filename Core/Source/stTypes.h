@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stTypes.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Portable way of expressing standard C compatible plain old data types
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -50,6 +50,9 @@ ST_PRIVATE_ENUM(Named="Enum",     Value=22, For="Type")
 ST_PRIVATE_ENUM(Named="Marker",   Value=255, For="Type")
 #define ST_TYPE_MARKER    255
 
+/**
+ * Get the number of bytes of a given type, and if it's a vector type, and if it's an array
+ */
 ST_INLINE u32 stGetTypeMemorySize(stEnum32 type, u32 nbElements, u32 arraySize)
 {
   switch(type)
@@ -76,6 +79,9 @@ ST_INLINE u32 stGetTypeMemorySize(stEnum32 type, u32 nbElements, u32 arraySize)
   return 0;
 }
 
+/**
+ * Get the string version of the ST_TYPE enum
+ */
 const char* stGetTypeToString(stEnum32 type);
 
 #define ST_MACRO_SHORTHANDTYPE_u8  ST_TYPE_UINT8  
