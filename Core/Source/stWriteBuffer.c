@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stWriteBuffer.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Delayed file writing class and functions
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

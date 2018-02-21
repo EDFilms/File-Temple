@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stWriterDelta.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * SceneTrack binary delta format writer interface for stWriter
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

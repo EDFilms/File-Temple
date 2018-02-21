@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stWriterDelta.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * SceneTrack binary delta format writer interface for stWriter
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -16,7 +16,15 @@
 #include "stPlatform.h"
 #include "stWriter.h"
 
+/**
+ * Perform a maintence update. Flushing any written data, making sure the classes are written, and write
+   any header frames to disk if necessary.
+ */
 void stWriterDeltaUpdate(stWriteContextData* context, stBool keepFrames);
+
+/**
+ * Close the context and releasing any used memory
+ */
 void stWriterDeltaClose(stWriteContextData* context, stBool keepFrames);
 
 #endif

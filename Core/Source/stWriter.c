@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stWriter.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Writer counterpart to the stReadContext
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
