@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * expTrs.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Functions and classes to transform cartesian coordinate systems into other kinds
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

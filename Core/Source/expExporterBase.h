@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * expExporterBase.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Shared utility class to iterate through a SceneTrack file
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -16,12 +16,26 @@
 #include "expSchema.h"
 #include "expIterator.h"
 
+/**
+ * Open log file for debugging and information purposes
+ * @see CloseLogFile
+ */
 void OpenLogFile(const char* name);
+
+/**
+ * Close the log file and release the file handle
+ * @see CloseLogFile
+ */
 void CloseLogFile();
 
 namespace EXP_NAMESPACE
 {
   
+  /**
+   * Shared exporter base class to iterate through the SceneTrack file and provide
+   * some support for maintaining state, holding the current schema, and handling
+   * the SceneTrack library.
+   */
   template<typename IteratorT>
   class ExporterBase_t
   {
@@ -48,11 +62,18 @@ namespace EXP_NAMESPACE
     {
     }
 
+    /**
+     * Get a reference to the current iterator
+     */
     IteratorT&     GetIterator()
     {
       return iterator;
     }
 
+    /**
+     * Open the SceneTrack file according to srcPath
+     * If opened; the iterator will be created and will point to the first frame.
+     */
     bool OpenSceneTrack()
     {
       framesProcessed = 0;
@@ -86,6 +107,9 @@ namespace EXP_NAMESPACE
       return true;
     }
 
+    /**
+     * Close the SceneTrack file and reset the iterator
+     */
     void CloseSceneTrack()
     {
       stDisposeIterator(iteratorHandle);
@@ -94,11 +118,17 @@ namespace EXP_NAMESPACE
       iterator.Reset();
     }
 
+    /**
+     * Reset's the iterator
+     */
     virtual void Reset()
     {
       iterator.Reset();
     }
 
+    /**
+     * Callback function to start the export processor. 
+     */
     virtual s32 Start()
     {
       Reset();
@@ -114,6 +144,9 @@ namespace EXP_NAMESPACE
       return 0;
     }
     
+    /**
+     * Perform a export of an entire frames worth of data
+     */
     s32 UpdateForEntireFrame()
     {
       bool frameChanged = false;
@@ -138,6 +171,9 @@ namespace EXP_NAMESPACE
       }
     }
 
+    /**
+     * Export for the current object's change only as per the iterator
+     */
     virtual s32 Update()
     {
       bool frameChanged = false;
@@ -153,6 +189,9 @@ namespace EXP_NAMESPACE
       return 1;
     }
 
+    /**
+     * Perform an export for a single object's change
+     */
     bool IterateOnce(bool& frameChanged)
     {
       IteratorT& it = GetIterator();
@@ -200,10 +239,21 @@ namespace EXP_NAMESPACE
 
     // Exporter Functions. Must Override.
 
+    /**
+     * A new frame has started, the previous changes of data by the exporter
+     * must be written to disk or finalised.
+     */
     virtual void ExportFrame(f64 frameTime, bool isLastFrame) = 0;
 
+    /**
+     * A new value has started; details are given in the iterator and
+     * what the value is provided in the schema.
+     */
     virtual void ExportValue(IteratorT& it, SchemaClass& klass) = 0;
 
+    /**
+     * Close the exporting process
+     */
     virtual s32 Close()
     {
       CloseSceneTrack();
@@ -216,16 +266,25 @@ namespace EXP_NAMESPACE
       return 1;
     }
 
+    /**
+     * Get the current frame in the iterator
+     */
     s32 GetCurrentFrame() const
     {
       return iterator.frameNum;
     }
 
+    /**
+     * Get the number of frames available for exporting
+     */
     s32 GetFrameCount() const
     {
       return stGetNumFrames();
     }
     
+    /**
+     * Get the percentage in exporting; represented as <code>current frame / total frames</code>
+     */
     f32 GetProgress() const
     { 
       return progress; 
@@ -233,6 +292,9 @@ namespace EXP_NAMESPACE
 
   };
 
+  /**
+   * Master function to start exporting, using the TExporter interface
+   */
   template<typename TExporter>
   s32 ExporterBegin(const char* name, const char* srcPath, const char* dstPath, std::shared_ptr<TExporter>& exporter)
   {
@@ -270,6 +332,9 @@ namespace EXP_NAMESPACE
 
   }
 
+  /**
+   * Master function to export for an entire frame
+   */
   template<typename TExporter>
   s32 ExporterUpdate(TExporter& exporter)
   {
@@ -288,6 +353,10 @@ namespace EXP_NAMESPACE
     return r;
   }
 
+  /**
+   * Master function to return decimal progress, or if there is no exporter return -1
+   * @return The progress or -1.0
+   */
   template<typename TExporter>
   f32 ExporterProgress(TExporter& exporter)
   {
@@ -297,6 +366,9 @@ namespace EXP_NAMESPACE
     return exporter->GetProgress();
   }
 
+  /**
+   * Master function to export an entire SceneTrack file into another format (TExporter) in one attempt
+   */
   template<typename TExporter>
   s32 ExporterExportOneGo(const char* name, const char* srcPath, const char* dstPath, TExporter& exporter)
   {

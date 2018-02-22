@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * expExporterBase.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Shared utility class to iterate through a SceneTrack file
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

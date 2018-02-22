@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * expRequired.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Common includes, typedefs, functions and macros used throughout the exporter
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

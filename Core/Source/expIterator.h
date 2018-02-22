@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stIterator.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Represent a C++ object of the internal state of a SceneTrack iterator
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -19,6 +19,11 @@
 namespace EXP_NAMESPACE
 {
 
+  /**
+   * Represents the state of a SceneTrack iterator whilst using the Schema
+   * system to identify the Object's component, and providing some helper
+   * functions to turn the data into more friendlier objects.
+   */
   struct IteratorBase
   {
     u32   iterator;
@@ -38,6 +43,9 @@ namespace EXP_NAMESPACE
     stBool32 bObjectChanged : 1;
     stBool32 bValueChanged : 1;
 
+    /**
+     * Fetch and learn information from the current SceneTrack iterator
+     */
     void Update()
     {
       lastObjectHandle  = objectHandle;
@@ -59,6 +67,9 @@ namespace EXP_NAMESPACE
       bValueChanged  = ((flags & ST_ITERATORCHANGEFLAGS_VALUE)  != 0);
     }
 
+    /**
+     * Reset the iterator to the default values
+     */
     void Reset()
     {
       iterator = 0;
@@ -77,6 +88,9 @@ namespace EXP_NAMESPACE
       bValueChanged = false;
     }
 
+    /**
+     * Read a SceneTrack string, and return as a std::string
+     */
     bool ReadString(std::string& str) const
     {
       s32 length = stIteratorGetValue_stringLength(iterator);
@@ -89,6 +103,9 @@ namespace EXP_NAMESPACE
       return false;
     }
 
+    /**
+     * Read a SceneTrack string, and return as a c-style string
+     */
     bool ReadCString(char* str, size_t capacity) const
     {
       memset(str, 0, capacity);
@@ -101,6 +118,9 @@ namespace EXP_NAMESPACE
       return false;
     }
 
+    /**
+     * Read an array of any POD type, and insert into a std::vector
+     */
     template<typename T>
     bool ReadArray(std::vector<T>& v) const
     {
@@ -110,81 +130,127 @@ namespace EXP_NAMESPACE
       return r != arraySize;
     }
 
+    /**
+     * Read a unsigned int8 value
+     */
     void ReadU8(u8& value) const
     {
       value = stIteratorGetValue_uint8(iterator, 0);
     }
-
+    
+    /**
+     * Read a unsigned int16 value
+     */
     void ReadU16(u16& value) const
     {
       value = stIteratorGetValue_uint16(iterator, 0);
     }
-
+    
+    /**
+     * Read a unsigned int32 value
+     */
     void ReadU32(u32& value) const
     {
       value = stIteratorGetValue_uint32(iterator, 0);
     }
-
+    
+    /**
+     * Read a unsigned int64 value
+     */
     void ReadU64(u64& value) const
     {
       value = stIteratorGetValue_uint64(iterator, 0);
     }
-
+    
+    /**
+     * Read a Signed int8 value
+     */
     void ReadS8(s8& value) const
     {
       value = stIteratorGetValue_uint8(iterator, 0);
     }
-
+    
+    /**
+     * Read a Signed int16 value
+     */
     void ReadS16(s16& value) const
     {
       value = stIteratorGetValue_int16(iterator, 0);
     }
-
+    
+    /**
+     * Read a Signed int32 value
+     */
     void ReadS32(s32& value) const
     {
       value = stIteratorGetValue_int32(iterator, 0);
     }
-
+    
+    /**
+     * Read a Signed int64 value
+     */
     void ReadS64(s64& value) const
     {
       value = stIteratorGetValue_int64(iterator, 0);
     }
-
+    
+    /**
+     * Read a Signed float32 (float) value
+     */
     void ReadF32(f32& value) const
     {
       value = stIteratorGetValue_float32(iterator, 0);
     }
-
+    
+    /**
+     * Read a Signed float64 (double) value
+     */
     void ReadF64(f64& value) const
     {
       value = stIteratorGetValue_float64(iterator, 0);
     }
 
+    /**
+     * Read a two-component uint32 vector
+     */
     void ReadVector2U(Vector2u& value) const
     {
       value.x = stIteratorGetValue_uint32(iterator, 0);
       value.y = stIteratorGetValue_uint32(iterator, 1);
     }
-
+    
+    /**
+     * Read a two-component uint32 vector as an rray
+     */
     void ReadVectorU32_2(u32* value) const
     {
       value[0] = stIteratorGetValue_uint32(iterator, 0);
       value[1] = stIteratorGetValue_uint32(iterator, 1);
     }
-
+    
+    /**
+     * Read a three-component float32 vector as an array
+     */
     void ReadVectorF32_3(float* value) const
     {
       value[0] = stIteratorGetValue_float32(iterator, 0);
       value[1] = stIteratorGetValue_float32(iterator, 1);
       value[2] = stIteratorGetValue_float32(iterator, 2);
     }
+    
+    /**
+     * Read a three-component float32 vector
+     */
     void ReadVector3(Vector3f& value) const
     {
       value.x = stIteratorGetValue_float32(iterator, 0);
       value.y = stIteratorGetValue_float32(iterator, 1);
       value.z = stIteratorGetValue_float32(iterator, 2);
     }
-
+    
+    /**
+     * Read a four-component float32 vector
+     */
     void ReadVector4(Vector4f& value) const
     {
       value.x = stIteratorGetValue_float32(iterator, 0);

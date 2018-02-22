@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * expMath.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Math related structures, components and dimensions
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -30,6 +30,9 @@ namespace EXP_NAMESPACE
     COUNT
   };
 
+  /**
+   * Names of the different the types of geometric transformations
+   */
   enum class TRS
   {
     Translation,
@@ -59,6 +62,9 @@ namespace EXP_NAMESPACE
 
   constexpr size_t kNodePropertyCount           = 3;
 
+  /**
+   * Names for each axis
+   */
   enum class Axis
   {
     STEXP_PUBLIC_ENUM(Named="X",     Value=0, For="Axis")
@@ -72,6 +78,9 @@ namespace EXP_NAMESPACE
     COUNT
   };
 
+  /**
+   * Possible orders of non-repeatable axis
+   */
   enum class AxisOrder
   {
     STEXP_PUBLIC_ENUM(Named="XYZ",     Value=0, For="AxisOrder")
@@ -89,6 +98,9 @@ namespace EXP_NAMESPACE
     COUNT
   };
 
+  /**
+   * Names of mathematical operators
+   */
   enum class Operator
   {
     STEXP_PUBLIC_ENUM(Named="SetZero",     Value=0, For="Operator", Text="=0")
@@ -112,6 +124,9 @@ namespace EXP_NAMESPACE
     COUNT
   };
 
+  /**
+   * Transform a generic numerical value based upon a mathematical operator
+   */
   template<typename T>
   inline T TransformValue(Operator op, const T& a, const T& b)
   {
@@ -140,7 +155,6 @@ namespace EXP_NAMESPACE
     inline static f32 Epsilon()  { return FLT_EPSILON; }
   };
 
-
   template<typename T> 
   struct Vector2T;
 
@@ -148,7 +162,10 @@ namespace EXP_NAMESPACE
   typedef Vector2T<s32>      Vector2i;
   typedef Vector2T<u32>      Vector2u;
   typedef Vector2T<f32>      Vector2f;
-
+  
+  /**
+   * A two component numerical-like vector
+   */
   template<typename T>
   struct Vector2T
   {
@@ -165,21 +182,35 @@ namespace EXP_NAMESPACE
     {
     }
 
+    /**
+     * Return a copy of a vector where all the values for each axis are the same given scalar value
+     */
     static inline Vector2T One(const T& s)
     {
       return Vector2T(s, s);
     }
 
+    /**
+     * Return the value of the dimension axis given
+     */
     inline T AxisValue(Axis axis) const
     {
       return *(&x + (size_t) axis);
     }
 
+    /**
+     * Perform a swizzle on a vector so the axis of the new vector are different.
+     * i.e. swizzle xy -> yx
+     */
     static inline Vector2T Swizzle(const Vector2T& v, Axis e1 = Axis::X, Axis e2 = Axis::X)
     {
       return Vector3T(v.AxisValue(e1), v.AxisValue(e2));
     }
 
+    /**
+     * Perform a mathematical operation on the vector, and return the result
+     * @see TransformValue
+     */
     static inline Vector2T Transform(const Vector2T& v, const Vector2T& t = Vector2T::One(1.0f), const Operator2& op = Operator2::One(Operator::Multiply))
     {
       return Vector3T(TransformValue(op.x, v.x, t.x), TransformValue(op.y, v.y, t.y));
@@ -195,7 +226,10 @@ namespace EXP_NAMESPACE
   typedef Vector3T<s32>      Vector3i;
   typedef Vector3T<u32>      Vector3u;
   typedef Vector3T<f32>      Vector3f;
-
+  
+  /**
+   * A three component numerical-like vector
+   */
   template<typename T>
   struct Vector3T
   {
@@ -212,51 +246,83 @@ namespace EXP_NAMESPACE
     {
     }
 
+    /**
+      * Get a float pointer to the value in the first axis
+     */
     inline f32* ptr()
     {
       return &x;
     }
-
+    
+    /**
+     * Return a copy of a vector where all the components are the same given scalar value
+     */
     static inline Vector3T One(const T& s)
     {
       return Vector3T(s, s, s);
     }
-
+    
+    /**
+     * Get the value associated with the given axis
+     */
     inline T& operator[](size_t axis)
     {
       return *(&x + axis);
     }
-
+    
+    /**
+     * Get the value associated with the given axis
+     */
     inline const T& operator[](size_t axis) const
     {
       return *(&x + axis);
     }
-
+    
+    /**
+     * Get the value associated with the given axis
+     */
     inline T& operator[](Axis axis)
     {
       return *(&x + (size_t) axis);
     }
-
+    
+    /**
+     * Get the value associated with the given axis
+     */
     inline const T& operator[](Axis axis) const
     {
       return *(&x + (size_t) axis);
     }
-
+    
+    /**
+     * Get the value associated with the given axis
+     */
     inline T AxisValue(Axis axis) const
     {
       return *(&x + (size_t) axis);
     }
-
+    
+    /**
+     * Perform a swizzle on a vector so the axis of the new vector are different.
+     * i.e. swizzle xyz -> yzx
+     */
     static inline Vector3T Swizzle(const Vector3T& v, Axis e1 = Axis::X, Axis e2 = Axis::X, Axis e3 = Axis::X)
     {
       return Vector3T(v.AxisValue(e1), v.AxisValue(e2), v.AxisValue(e3));
     }
-
+    
+    /**
+     * Perform a mathematical operation on the vector, and return the result
+     * @see TransformValue
+     */
     static inline Vector3T Transform(const Vector3T& v, const Vector3T& t = Vector3T::One(1.0f), const Operator3& op = Operator3::One(Operator::Multiply))
     {
       return Vector3T(TransformValue(op.x, v.x, t.x), TransformValue(op.y, v.y, t.y), TransformValue(op.z, v.z, t.z));
     }
 
+    /**
+     * Does this vector equals (or approximately equal) another vector of the same type
+     */
     static bool Equals(const Vector3T& lhs, const Vector3T& rhs)
     {
       if (Unit<T>::Abs(lhs.x - rhs.x) > Unit<T>::Epsilon())
@@ -268,6 +334,9 @@ namespace EXP_NAMESPACE
       return true;
     }
 
+    /**
+     * Does the vector not equal another vector of the same type
+     */
     static bool NotEquals(const Vector3T& lhs, const Vector3T& rhs)
     {
       return !Equals(lhs, rhs);
@@ -284,7 +353,10 @@ namespace EXP_NAMESPACE
   typedef Vector4T<f32>      Vector4f;
   typedef Vector4T<u8>       Vector4ub;
   template<typename K> class Type<Vector3T<K>>   { public: static constexpr u32 kType = Type<K>::kType;  static constexpr u32 kNbElements = 3; }; 
-
+  
+  /**
+   * A four component numerical-like vector
+   */
   template<typename T>
   struct Vector4T
   {
@@ -352,8 +424,14 @@ namespace EXP_NAMESPACE
 
   template<typename K> struct Type<Vector4T<K>>   { static constexpr u32 kType = Type<K>::kType; static constexpr u32 kNbElements = 4; }; 
 
+  /**
+   * A Quaternion implemented as a Vector4 float32
+   */
   typedef Vector4f Quaternion;
   
+  /**
+   * A 4x4 transformation matrix
+   */
   template<typename T> struct Matrix44T
   {
     f32 m[16];
@@ -451,6 +529,9 @@ namespace EXP_NAMESPACE
 
   typedef Matrix44T<f32> Matrix44f;
 
+  /**
+   * A minimum and Maximum bounding box
+   */
   struct Bounds
   {
     Bounds(): min(0.0f, 0.0f, 0.0f), max(0.0f, 0.0f, 0.0f)
@@ -459,6 +540,9 @@ namespace EXP_NAMESPACE
     Vector3f min, max;
   };
 
+  /**
+   * A structure representing the order of axes in a vector-like structure.
+   */
   template<size_t N>
   struct AxisElement
   {
@@ -466,6 +550,9 @@ namespace EXP_NAMESPACE
     Axis axis[N];
   };
 
+  /**
+   * An structure representing the order of axes and signs in a 3-component vector-like structure
+   */
   template<>
   struct AxisElement<3>
   {
@@ -515,7 +602,10 @@ namespace EXP_NAMESPACE
       sign[2] = 1.0f;
     }
   };
-
+  
+  /**
+   * An structure representing the order of axes and signs in a 4-component vector-like structure
+   */
   template<>
   struct AxisElement<4>
   {
@@ -575,6 +665,9 @@ namespace EXP_NAMESPACE
 
   };
 
+  /**
+   * A structure representing operators to operate on each value of axis to change (or not change) a vector-like structure
+   */
   template<size_t N>
   struct AxisTransformFunction
   {
@@ -582,7 +675,11 @@ namespace EXP_NAMESPACE
     Operator op[N];
     f64      constant[N];
   };
-
+  
+  /**
+   * A structure representing operators to operate on each value of axis to change (or not change) a 3-component vector-like 
+   * structure
+   */
   template<>
   struct AxisTransformFunction<3>
   {
@@ -612,7 +709,11 @@ namespace EXP_NAMESPACE
       k[2] = k2;
     }
   };
-
+  
+  /**
+   * A structure representing operators to operate on each value of axis to change (or not change) a 4-component vector-like 
+   * structure
+   */
   template<>
   struct AxisTransformFunction<4>
   {
@@ -647,6 +748,9 @@ namespace EXP_NAMESPACE
     }
   };
 
+  /**
+   * Convert an AxisOrder enum value into an AxisElement struct
+   */
   inline void AxisOrderToAxisElement(AxisOrder order, AxisElement<3>& axisElement)
   {
     switch(order)

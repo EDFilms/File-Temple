@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * expSchema.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * A collection of classes, functions and enums for handling Schemas.
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

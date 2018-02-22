@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * expSchema.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * A collection of classes, functions and enums for handling Schemas.
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -21,6 +21,9 @@ namespace EXP_NAMESPACE
 
   typedef int SchemaClassTypeT;
 
+  /**
+   * Units of a value
+   */
   enum class Units
   {
     Unspecified = ST_UNITS_UNSPECIFIED,
@@ -28,6 +31,9 @@ namespace EXP_NAMESPACE
     Radian      = ST_UNITS_RADIAN
   };
 
+  /**
+   * What a value is in reference to
+   */
   enum class Reference
   {
     Unspecified = ST_REFERENCE_UNSPECIFIED,
@@ -35,6 +41,9 @@ namespace EXP_NAMESPACE
     World       = ST_REFERENCE_WORLD
   };
 
+  /**
+   * How often an object is updated
+   */
   enum class Frequency
   {
     Static      = ST_FREQUENCY_STATIC,
@@ -51,7 +60,9 @@ namespace EXP_NAMESPACE
   typedef std::shared_ptr<SchemaClassT> SchemaClass;
   typedef std::shared_ptr<SchemaT> Schema;
 
-
+  /**
+   * Schema about a value-component
+   */
   class SchemaComponentT
   {
   public:
@@ -74,7 +85,10 @@ namespace EXP_NAMESPACE
   };
 
   class SchemaClassBuilder;
-
+  
+  /**
+   * Helper class to build a Component Schema
+   */
   class SchemaComponentBuilder
   {
     SchemaComponent                  component;
@@ -104,6 +118,9 @@ namespace EXP_NAMESPACE
     SchemaClassBuilder& End() const;
   };
 
+  /**
+   * Schema about a Class
+   */
   class SchemaClassT
   {
   public:
@@ -125,6 +142,9 @@ namespace EXP_NAMESPACE
     void Discover();
   };
 
+  /**
+   * Helper class to build a Class Schema
+   */
   class SchemaClassBuilder
   {
   public:
@@ -135,19 +155,34 @@ namespace EXP_NAMESPACE
     SchemaComponentBuilder Component(const std::string& name);
   };
 
+  /**
+   * A Schema class, representing the entire Schema namespace.
+   */
   class SchemaT
   {
     std::map<std::string, std::shared_ptr<SchemaClassT>> classes;
     std::map<u32, std::shared_ptr<SchemaClassT>>         classesByObjectType;
 
   public:
-
+    
+    /**
+     * Make a Schema class with the given name, frequency, userData and class type
+     */
     SchemaClassBuilder makeClass(const std::string& name, Frequency frequency, u32 userData, SchemaClassTypeT classType);
 
+    /**
+     * Find a class corresponding to a SceneTrack object handle.
+     */
     bool FindClass(u32 objectType, SchemaClass& outClass) const;
 
+    /**
+     * Register all the classes/components that was built.
+     */
     void Register();
-
+    
+    /**
+     * Discover all the classes/components that was built.
+     */
     void Discover();
   };
 
