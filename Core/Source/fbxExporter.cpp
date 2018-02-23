@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * FbxExporter.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * FbxExporter implementation of the Shared ExporterBase_t class
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

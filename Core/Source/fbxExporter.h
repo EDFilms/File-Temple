@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * FbxExporter.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * FbxExporter implementation of the Shared ExporterBase_t class
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -23,7 +23,10 @@
 
 namespace SceneTrackFbx
 {
-
+  
+  /**
+   * FbxExporter implementation of the ExporterBase_t class
+   */
   class FbxExporterT : public ExporterBase_t<Iterator>
   {
     
@@ -44,29 +47,69 @@ namespace SceneTrackFbx
 
     ~FbxExporterT();
 
-
+    /**
+     * Reset the exporter, and release any existing handles or memory
+     */
     void Reset();
+
+    /**
+     * Start the export process
+     */
     s32  Start();
+
+    /**
+     * Close the exporter process, and release the FbxSdk Library
+     */
     s32  Close() override;
 
+    /**
+     * Export and write the last frame to disk (if needed), and increase the frame counter
+     */
     void ExportFrame(f64 frameTime, bool isLastFrame) override;
 
+    /**
+     * Export a value from a change of a Object's component
+     */
     void ExportValue(Iterator& it, SchemaClass& klass) override;
 
+    /**
+     * Find or create a GameObject
+     */
     GameObjectRef    FindOrCreateGameObject(u32 objectId);
 
+    /**
+     * Find or create a Transform
+     */
     TransformRef    FindOrCreateTransform(u32 objectId);
 
+    /**
+     * Find or create a Standard Mesh Renderer
+     */
     StandardMeshRendererRef    FindOrCreateStandardMeshRenderer(u32 objectId);
 
+    /**
+     * Find or create a Mesh
+     */
     MeshRef    FindOrCreateMesh(u32 objectId);
 
+    /**
+     * Find or create a SubMesh
+     */
     SubMeshRef FindOrCreateSubMesh(u32 objectId);
 
+    /**
+     * Find or create a Material
+     */
     MaterialRef FindOrCreateMaterial(u32 objectId);
 
+    /**
+     * Find or create a Skinned Mesh Renderer
+     */
     SkinnedMeshRendererRef FindOrCreateSkinnedMeshRenderer(u32 objectId);
 
+    /**
+     * Find or create an Asset according to it's name and AssetType
+     */
     Asset FindOrCreateAsset(const std::string& name, AssetType type);
 
   protected:

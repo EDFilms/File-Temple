@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * fbxDocument_Material.cpp
+ * fbxDocument_SkinnedMeshRenderer.cpp
  *
- * Skinned Mesh Renderer functions for FbxDocument
+ * Skinned Mesh Renderer and Animation functions for FbxDocument
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

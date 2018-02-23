@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxMaterial.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Represents a state of a Material according to the Unity Schema
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -20,6 +20,9 @@
 
 namespace SceneTrackFbx
 {
+  /**
+   * An implementation of the current state of a Material as per the Unity Schema
+   */
   class Material_t
   {
   public:
@@ -38,6 +41,10 @@ namespace SceneTrackFbx
 
     Material_t(u32 handle);
 
+    /**
+     * From a given iterator and schema iterate and read any or all
+     * of the material properties from the iterator.
+     */
     bool IterateOver(const Iterator& iterator, SchemaClass schema);
 
   };

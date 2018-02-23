@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxMesh.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Representation of a triangular mesh and submeshes per the Unity Schema
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
