@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxAsset.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Representation and management classes for external assets
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxDocument_GameObject.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * GameObject functions for FbxDocument (Unused)
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

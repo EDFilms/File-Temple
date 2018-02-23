@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * FbxShared.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Common Macros, Functions and Classes used throughout the SceneTrack FbxExporter
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -30,46 +30,73 @@
 namespace SceneTrackFbx
 {
 
+  /**
+   * Convert a Vector2f into a FbxVector2
+   */
   inline FbxVector2 ToFbxVector2(const Vector2f& v)
   {
     return FbxVector2(v.x, v.y);
   }
-
+  
+  /**
+   * Convert a Vector3f into a FbxVector4, but set the w component to 1
+   */
   inline FbxVector4 ToFbxVector4(const Vector3f& v)
   {
     return FbxVector4(v.x, v.y, v.z, 1.0);
   }
-
+  
+  /**
+   * Convert seperate x, y, z values into a FbxVector4, but set the w component to 1
+   */
   inline FbxVector4 ToFbxVector4(f32 x, f32 y, f32 z)
   {
     return FbxVector4(x, y, z, 1.0);
   }
-
+  
+  /**
+   * Convert Euler angles (as a FbxVector3f) to a FbxVector4
+   */
   inline FbxVector4 ToFbxEulerZXY(const Vector3f& v)
   {
     return FbxVector4(v.z, v.x, v.y, 1.0);
   }
-
+  
+  /**
+   * Convert Vector4f to a FbxVector4
+   */
   inline FbxVector4 ToFbxVector4(const Vector4f& v)
   {
     return FbxVector4(v.x, v.y, v.z, v.w);
   }
-
+  
+  /**
+   * Convert Vector4f to a FbxColour where x,y,z,w are the RGBA values.
+   */
   inline FbxColor ToFbxColor(const Vector4f& v)
   {
     return FbxColor(v.x, v.y, v.z, v.w);
   }
-
+  
+  /**
+   * Convert Vector4f to a FbxQuaternion
+   */
   inline FbxQuaternion ToFbxQuaternion(const Vector4f& v)
   {
     return FbxQuaternion(v.x, v.y, v.z, v.w);
   }
-
+  
+  /**
+   * Convert Vector3f to a FbxDouble3
+   */
   inline FbxDouble3 ToFbxDouble3(const Vector3f& v)
   {
     return FbxDouble3(v.x, v.y, v.z);
   }
 
+  /**
+   * Convert a 4x4 Matrix (Matrix44f) to an affine FbxAMatrix
+   */
   inline FbxAMatrix ToFbxAMatrix(const Matrix44f& m)
   {
     FbxAMatrix s;
@@ -81,6 +108,9 @@ namespace SceneTrackFbx
     return s;
   }
 
+  /**
+   * Convert the FbxFrameRate enum into the best matching FbxTime::EMode enum
+   */
   inline FbxTime::EMode TimeRateToFbxTimeEMode(FbxFrameRate r)
   {
     switch(r)
@@ -120,7 +150,12 @@ namespace SceneTrackFbx
     FbxAnimLayer* animLayer;
   };
 
-
+  /**
+   * Curve type for each Translation, Rotation and Scale components; X, Y, Z
+   * Where:
+   *   Position/Scale are: X, Y, Z
+   *   Rotation: Euler Angles of X, Y, Z
+   */
   enum FCurveType
   {
     TX,
@@ -134,9 +169,16 @@ namespace SceneTrackFbx
     SZ
   };
 
+  /**
+   * Template-meta class to resolve a FCurveType enum to a String at compile time
+   * where Type is any of FCurveType
+   */
   template<int Type>
   class FCurveInfo {};
 
+  /**
+   * Specialisations of all FCurveTypes
+   */
   template<> class FCurveInfo<TX> { public: static const char* Name() { return "X"; } };
   template<> class FCurveInfo<TY> { public: static const char* Name() { return "Y"; } };
   template<> class FCurveInfo<TZ> { public: static const char* Name() { return "Z"; } };
@@ -147,6 +189,10 @@ namespace SceneTrackFbx
   template<> class FCurveInfo<SY> { public: static const char* Name() { return "Y"; } };
   template<> class FCurveInfo<SZ> { public: static const char* Name() { return "Z"; } };
 
+  /**
+   * Represents a helper class around the FbxAnimCurve to any of the FCurveTypes
+   * where Type is any of FCurveType
+   */
   template<int Type>
   class FCurve
   {
@@ -154,6 +200,9 @@ namespace SceneTrackFbx
     ::FbxAnimCurve* curve;
     bool            isOpen;
 
+    /**
+     * Initilise the Curve based upon a FbxProperty and animation layer
+     */
     void Initialise(FbxPropertyT<FbxDouble3>& prop, FbxAnimLayer* animLayer)
     {
       curve = prop.GetCurve(animLayer, FCurveInfo<Type>::Name(), true);
@@ -161,6 +210,9 @@ namespace SceneTrackFbx
       isOpen = true;
     }
 
+    /**
+     * Close the curve and add the final key frames.
+     */
     void Shutdown()
     {
       if (isOpen)
@@ -170,6 +222,9 @@ namespace SceneTrackFbx
       }
     }
 
+    /**
+     * Add a key frame with the given value at the given time.
+     */
     void Update(f64 time, f32 value)
     {
       FbxTime t;
@@ -180,6 +235,13 @@ namespace SceneTrackFbx
 
   };
 
+  /**
+   * Represents a 3-component curve based around the FCurve template. These
+   * are used to hold the KeyFrame information about Position, Rotation and/or
+   * scale.
+   *
+   * Where XType is any of: FCurveType::TX, FCurveType::RX or FCurveType::SX
+   */
   template<int XType>
   class FCurve3
   {
@@ -187,21 +249,30 @@ namespace SceneTrackFbx
     FCurve<XType + 0> x;
     FCurve<XType + 1> y;
     FCurve<XType + 2> z;
-
+    
+    /**
+     * Initilise the Curves based upon a FbxProperty and animation layer
+     */
     void Initialise(FbxPropertyT<FbxDouble3>& prop, FbxAnimLayer* animLayer)
     {
       x.Initialise(prop, animLayer);
       y.Initialise(prop, animLayer);
       z.Initialise(prop, animLayer);
     }
-
+    
+    /**
+     * Close the curves and add the final key frames.
+     */
     void Shutdown()
     {
       x.Shutdown();
       y.Shutdown();
       z.Shutdown();
     }
-
+    
+    /**
+     * Add a key frame with the given 3-component vector value (as FbxVector4) at the given time.
+     */
     void Update(f64 time, const FbxVector4& value)
     {
       x.Update(time, (f32) value.mData[0]);
@@ -209,6 +280,9 @@ namespace SceneTrackFbx
       z.Update(time, (f32) value.mData[2]);
     }
 
+    /**
+     * Returns the number of keyframes
+     */
     int GetCurveCount() const
     {
       return x.curve->KeyGetCount();
@@ -216,6 +290,17 @@ namespace SceneTrackFbx
 
   };
 
+  /**
+   * Represents a FbxNode with an animation curve
+   *
+   * Depending on if set and the STFBX_CONFIG_DUMMY_PRECISION_NODE_ON_SKINNED_MESH_RENDERERS is
+   * set to 1. A dummy FbxNode will also be created and maintained to fix the Fbx Exporter
+   * bug with Skinned Mesh renderers away from the origin.
+   * 
+   * @see FbxDocumentWriter_t::CreateNodeWithMesh
+   * @see FbxDocumentWriter_t::CreateNodeWithSkinnedMesh
+   * @see STFBX_CONFIG_DUMMY_PRECISION_NODE_ON_SKINNED_MESH_RENDERERS
+   */
   class FNode_t
   {
   public:
@@ -229,6 +314,9 @@ namespace SceneTrackFbx
     stBool32    bDeleted              : 1;
   };
 
+  /**
+   * Represents a FbxMesh to be attached to a FNode
+   */
   class FMesh_t
   {
   public:
@@ -242,6 +330,9 @@ namespace SceneTrackFbx
     }
   };
 
+  /**
+   * Represents a FbxSkeleton used with the FBone and FMesh classes
+   */
   class FSkeleton_t
   {
   public:
@@ -255,6 +346,12 @@ namespace SceneTrackFbx
     }
   };
 
+  /**
+   * Represents a FbxSkeleton bone. Each bone has it's own
+   * TRS curves to allow skinned mesh animations.
+   *
+   * Bones may be attached to other bones.
+   */
   class FBone_t
   {
   public:
@@ -279,6 +376,9 @@ namespace SceneTrackFbx
 
   };
 
+  /**
+   * Represents a phong based texturable material
+   */
   class FMaterial_t
   {
   public:
@@ -298,6 +398,9 @@ namespace SceneTrackFbx
   
   };
 
+  /**
+   * Represents the FbxFileTexture class
+   */
   class FTexture_t
   {
   public:
@@ -316,7 +419,9 @@ namespace SceneTrackFbx
     }
   };
 
-
+  /**
+   * Converts AxisOrder to FbxEuler::EOrder
+   */
   inline FbxEuler::EOrder ToRotationOrder(AxisOrder axisOrder)
   {
     switch(axisOrder)
@@ -331,8 +436,14 @@ namespace SceneTrackFbx
     }
   }
 
+  /**
+   * Create or get a FbxNode corresponding to the TransformRef
+   */
   FbxNode* CreateOrGetNodeTree(FbxManager* mgr, FbxAnimLayer* animLayer, FbxNode* root, TransformRef transform, f64 time, bool createGlobalDummy);
 
+  /**
+   * Apply materials to the given FbxNode
+   */
   void  ApplyMaterials(std::vector<MaterialRef> materials, FbxNode* node, FbxDocumentWriter_t* doc);
 }
 

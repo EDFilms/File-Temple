@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxDocument_Mesh.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Material functions for FbxDocument
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

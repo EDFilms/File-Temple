@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxAsset.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Representation and management classes for external assets
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -17,6 +17,9 @@
 namespace SceneTrackFbx
 {
 
+  /**
+   * Type of external assets
+   */
   enum class AssetType
   {
     Texture,
@@ -26,6 +29,9 @@ namespace SceneTrackFbx
 
   typedef std::pair<std::string, AssetType> AssetId;
 
+  /**
+   * Asset search paths
+   */
   struct AssetPaths_t
   {
     // name (without extension), full path
@@ -33,11 +39,21 @@ namespace SceneTrackFbx
     // name (without extension), full path
     std::multimap<std::string, std::string> shaders;
 
+    /**
+     * Add an image asset search path
+     */
     void AddImage(const std::string& name, const char* extension, const std::string& path);
+    
+    /**
+     * Add a shader asset search path
+     */
     void AddShader(const std::string& name, const char* extension, const std::string& path);
 
   };
 
+  /**
+   * Class representation of an external asset
+   */
   class Asset_t
   {
   public:
@@ -53,6 +69,9 @@ namespace SceneTrackFbx
       bDeleted = true;
     }
 
+    /**
+     * Try and resolve the path for the asset by it's name.
+     */
     void TryResolvePath(AssetPaths_t& assetPaths);
 
     std::string        handle;
@@ -67,6 +86,9 @@ namespace SceneTrackFbx
 
   typedef std::shared_ptr<Asset_t> Asset;
 
+  /**
+   * Singleton type class to manage and fetch Asset instances
+   */
   class AssetManager_t
   {
   public:
@@ -80,8 +102,15 @@ namespace SceneTrackFbx
     {
     }
 
+    /**
+     * Using Settings::sAssetSearchPaths go through all directories and build
+     * a list of usable assets but do not load them.
+     */
     void DiscoverAssets();
 
+    /**
+     * Try and get an asset according to it's name and type
+     */
     bool Get(Asset& maybeOutHandle, const std::string& id, AssetType type) const
     {
       const auto it = references.find(std::make_pair(id, type));
@@ -92,6 +121,9 @@ namespace SceneTrackFbx
       return true;
     }
 
+    /**
+     * Create an asset based on it's name and type
+     */
     Asset Create(const std::string& id, AssetType type)
     {
       Asset asset = std::make_shared<Asset_t>(id, type);
@@ -100,6 +132,10 @@ namespace SceneTrackFbx
       return asset;
     }
 
+    /**
+     * Try and get an asset according to it's name and type, if
+     * it does not exist then create it.
+     */
     Asset GetOrCreate(const std::string& id, AssetType type)
     {
       const auto it = references.find(std::make_pair(id, type));

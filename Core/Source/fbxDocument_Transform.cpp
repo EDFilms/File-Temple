@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxDocument_Transform.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Transform and Node functions for FbxDocument. As well as Unity to Fbx Coordinate system transformations.
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
