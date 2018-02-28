@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * midiWriter.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Writer interfaces to turn an EventGraph into Midi or XML files
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

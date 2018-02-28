@@ -1,9 +1,10 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * midiEventSchema.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Schema to describe the rules, types and conversions for a spatial and
+ * temporal Event graph to convert into musical notes
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

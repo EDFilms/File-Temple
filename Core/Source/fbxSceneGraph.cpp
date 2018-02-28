@@ -1,9 +1,10 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxSceneGraph.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Collection of classes that correspond to the Unity Scene (or a SceneGraph
+ * like it) which matches to the Unity Schema
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * videoExporter.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Implementation of the IteratorBase from the expIterator interface
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stSchema.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Provides conversion rules between SceneTrack and the FbxExporter
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

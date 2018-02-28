@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * midiExporter.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * midiExporter implementation of the Shared ExporterBase_t class
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

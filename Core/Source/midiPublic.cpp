@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * midiPublic.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Public C interface for the MidiExporter library
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

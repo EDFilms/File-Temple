@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * videoExporter.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * videoExporter implementation of the Shared ExporterBase_t class
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

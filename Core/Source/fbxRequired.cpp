@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxRequired.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Common macros, constants and functions used throughout the FbxExporter
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

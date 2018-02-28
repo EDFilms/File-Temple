@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stMidiFile.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Midi File writer interface
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

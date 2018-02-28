@@ -1,9 +1,10 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * videoSchema.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Schema to describe the rules, types and conversions for the
+ * saved Video Frames from the SceneTrack file
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxPublic.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Public API library header functions
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

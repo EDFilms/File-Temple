@@ -1,9 +1,10 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxUnitySchema.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * A collection of rules and conversion information for a SceneTrack
+ * file that was saved int the Unity Exporter, to a the FbxExporter
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

@@ -1,10 +1,11 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxSceneGraph.h
  *
- * [[[BREIF DESCRIPTION]]]
- * 
+ * Collection of classes that correspond to the Unity Scene (or a SceneGraph
+ * like it) which matches to the Unity Schema
+ *
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
  * @since	  1.0.0
@@ -31,6 +32,9 @@ namespace SceneTrackFbx
   typedef Ref<StandardMeshRenderer_t> StandardMeshRendererRef;
   typedef Ref<SkinnedMeshRenderer_t>  SkinnedMeshRendererRef;
 
+  /**
+   * A GameObject is a container class of a Transform.
+   */
   class GameObject_t
   {
     public:
@@ -50,7 +54,19 @@ namespace SceneTrackFbx
     bool IterateOver(const Iterator& iterator, SchemaClass schema);
   };
 
-
+  /**
+   * A Transform is represents a node in the SceneGraph which
+   * has some spatial information (Transform, Rotation and Scale).
+   *
+   * Transforms can have child-transforms forming a parent-child
+   * hierarchy.
+   *
+   * It is also indirectly a container class for components;
+   *    StandardMeshRenderer
+   *    SkinnedMeshRenderer
+   *
+   * Transforms may also act as bones for skeletons.
+   */
   class Transform_t
   {
     public:
@@ -85,6 +101,11 @@ namespace SceneTrackFbx
 
   };
 
+  /**
+   * StandardMeshRenderer is a type of component that
+   * provides a single instance of a non-animated Mesh with
+   * material information.
+   */
   class StandardMeshRenderer_t
   {
   public:
@@ -103,6 +124,13 @@ namespace SceneTrackFbx
 
   };
 
+  /**
+   * A SkinnedMeshRenderer is a type of component that
+   * provides a single instance of a skeletal animated Mesh
+   * with material and skeletal information.
+   *
+   * Skeletonal bones are represented as child transforms.
+   */
   class SkinnedMeshRenderer_t
   {
   public:

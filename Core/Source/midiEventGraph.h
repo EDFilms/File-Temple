@@ -1,9 +1,10 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * midiEventGraph.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Represents a spatial and temporal graph of events that
+ * correspond to musical notes.
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -17,13 +18,18 @@
 
 namespace SceneTrackMidi
 {
-  
+  /**
+   * Event classes as an enumeration
+   */
   enum class EventClass
   {
     None,
     PhysicsEvent
   };
 
+  /**
+   * Type of the Event State; Started, Continuing or Stopped.
+   */
   enum class EventType
   {
     Start    = 0,
@@ -31,6 +37,9 @@ namespace SceneTrackMidi
     Stop     = 2
   };
 
+  /**
+   * Event master class
+   */
   class Event
   {
   public:
@@ -56,6 +65,9 @@ namespace SceneTrackMidi
     u32           otherObject;
   };
 
+  /**
+   * Container class for Events for a particular SceneTrack Object
+   */
   class ObjectEventTrack
   {
   public:
@@ -68,7 +80,10 @@ namespace SceneTrackMidi
     ~ObjectEventTrack()
     {
     }
-
+    
+    /**
+     * Append an event to the track
+     */
     Event& Add(EventClass klass_, EventType event_)
     {
       events.push_back(Event(klass_, event_));
@@ -80,6 +95,9 @@ namespace SceneTrackMidi
     std::vector<Event> events;
   };
 
+  /**
+   * Container class for all ObjectEventTracks organised by SceneTrack Objects
+   */
   class EventGraph
   {
   public:
@@ -103,6 +121,11 @@ namespace SceneTrackMidi
       tracks.clear();
     }
 
+    /**
+     * Get or Create an EventTrack corresponding to the SceneTrackObject
+     * didCreate is used by the function for if the Track was created
+     * or already existed.
+     */
     ObjectEventTrack* GetOrAdd(u32 objectId, bool& didCreate)
     {
       auto it = tracks.find(objectId);
