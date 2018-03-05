@@ -1,14 +1,15 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * ApiBuilder.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Builds out the API headers automatically
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
  * @since	  1.0.0
  */
+
 
 #include <iostream>
 #include <regex>
