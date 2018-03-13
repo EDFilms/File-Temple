@@ -35,10 +35,11 @@ namespace SceneTrackMidi
     std::string     trackName;
     std::vector<u8> trackData;
     u64             noteTime[127];
-    u64             lastTime; // This may be per note.
+    u64             lastTime_us; // This may be per note.
     u64             tempo, ticksPerQuarterNote;
     f64             secondsMultiplier;
     u32             trackCount;
+    f64             lastTimeFrac;
 
   public:
 
@@ -70,27 +71,27 @@ namespace SceneTrackMidi
     /**
      * Write a note that is down. (Pressed)
      */
-    void WriteOnNote(f64 time, u8 note, u8 velocity);
+    void WriteOnNote(u64 time, u8 note, u8 velocity);
 
     /**
      * Write a note that is up. (Released)
      */
-    void WriteOffNote(f64 time, u8 note);
+    void WriteOffNote(u64 time, u8 note);
 
     /**
      * Write a lyric at a specific time
      */
-    void WriteLyric(f64 time, s64 timeOffsetTicks, const std::string& text);
+    void WriteLyric(u64 time, s64 timeOffsetTicks, const std::string& text);
     
     /**
      * Write a cue point at a specific time
      */
-    void WriteCuePoint(f64 time, s64 timeOffsetTicks, const std::string& text);
+    void WriteCuePoint(u64 time, s64 timeOffsetTicks, const std::string& text);
     
     /**
      * Write a track name at a specific time
      */
-    void WriteTrackName(f64 time, s64 timeOffsetTicks, const std::string& text);
+    void WriteTrackName(u64 time, s64 timeOffsetTicks, const std::string& text);
 
   private:
 
@@ -99,7 +100,7 @@ namespace SceneTrackMidi
     void _WriteCStr(const char* str);
     void _WriteString(const std::string& str);
 
-    void _WriteTime(f64 time, s64 timeOffsetTicks = 0);
+    void _WriteTime(u64 time, s64 timeOffsetTicks = 0);
     void _WriteStatus(u8 category, u8 channel);
     void _WriteByte(u8 byte);
   };

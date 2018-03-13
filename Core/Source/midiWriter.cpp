@@ -15,6 +15,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <iomanip> 
 
 namespace SceneTrackMidi
 {
@@ -23,19 +24,23 @@ namespace SceneTrackMidi
   {
     std::ofstream file;
     file.open(dst);
-
+    
+    file << std::setprecision(9);
     file << "<?xml version=\"1.0\" encoding=\"ASCII\" standalone=\"yes\"?>" << std::endl;
 
     for(auto track : graph->tracks)
     {
       file << "<object id=\"" << track.second->objectId << "\"";
-
+      
+      u64 evtCount = track.second->events.size();
       const auto trackName = names.find(track.second->objectId);
 
       if (trackName != names.end())
       { 
         file << " name=\"" << trackName->second << "\"";
       }
+
+      file << "event-count=\"" << evtCount << "\"";
 
       file << ">" << std::endl;
        
@@ -47,17 +52,29 @@ namespace SceneTrackMidi
         file << "]]>" << std::endl;
         file << "\t</userdata>" << std::endl;
       }
+      
+      u64 evtId = 0;
+      
+      u64 time_sum_us = 0;
+      f64 time = 0;
 
       for(auto& evt : track.second->events)
       {
+        time = evt.frameLength * 1000000.0;
+        time_sum_us += (u64) time;
+        evtId++;
         switch(evt.klass)
         {
           case EventClass::PhysicsEvent: 
             file << "\t<physics-event ";
           break;
         }
-        
-        file << "frame-number=\"" << evt.frameNumber << "\" frame-time=\"" << evt.frameTime << "\">" << std::endl;
+
+        file << "frame-number=\"" << evt.frameNumber << "\" frame-time=\"" << evt.frameTime << "\"";
+        file << " frame-length=\"" << evt.frameLength << "\"";
+        file << " event-number=\"" << evtId << "\"";
+        file << " calc-time-us=\"" << time_sum_us << "\"";
+        file << ">" << std::endl;
         
         file << "\t<other";
 
@@ -166,7 +183,7 @@ namespace SceneTrackMidi
     file.Open(dst, (u16) graph->tracks.size());
     f64 time = 0.0;
 
-    for(auto trackKv : graph->tracks)
+    for(const auto& trackKv : graph->tracks)
     {
       for(u32 i=0;i < 127;i++)
         notes[i] = 0;
@@ -175,7 +192,7 @@ namespace SceneTrackMidi
 
       ResetSs(ss);
 
-      const auto trackName = names.find(track->objectId);
+      const auto& trackName = names.find(track->objectId);
 
       if (trackName != names.end())
       { 
@@ -195,9 +212,14 @@ namespace SceneTrackMidi
         file.WriteLyric(0, 0, track->userData);
       }
 
-      for(auto evt : track->events)
+      u64 evtCount = track->events.size();
+      u64 evtId = 0;
+      u64 time_sum_us = 0;
+      for(const auto& evt : track->events)
       {
-        time = evt.frameTime;
+        evtId++;
+        time = evt.frameTime * 1000000.0;
+        time_sum_us = (u64) time;
 
         if (evt.event == EventType::Start)
         {
@@ -222,7 +244,7 @@ namespace SceneTrackMidi
 
           ResetSs(ss);
 
-          ss << evt.frameTime << ",start," << objectName << ',';
+          ss << time_sum_us << "," << evtId << ":" << evtCount << ",start," << objectName << ',';
 
           if (otherName != names.end())
           { 
@@ -235,9 +257,9 @@ namespace SceneTrackMidi
 
           ss << ',' << evt.strength <<  ',' << evt.worldPosition.x << ',' << evt.worldPosition.y << ',' << evt.worldPosition.z;
 
-          file.WriteCuePoint(time, -1, ss.str());
+          file.WriteCuePoint(time_sum_us, -1, ss.str());
 
-          file.WriteOnNote(time, NormaliseNote(note), velocity);
+          file.WriteOnNote(time_sum_us, NormaliseNote(note), velocity);
         }
         else if (evt.event == EventType::Stop)
         {
@@ -247,7 +269,7 @@ namespace SceneTrackMidi
 
           ResetSs(ss);
 
-          ss << evt.frameTime << ",stop," << objectName << ',';
+          ss << time_sum_us << "," << evtId << ":" << evtCount << ",stop," << objectName << ',';
 
           if (otherName != names.end())
           { 
@@ -260,11 +282,12 @@ namespace SceneTrackMidi
 
           ss << ',' << evt.strength <<  ',' << evt.worldPosition.x << ',' << evt.worldPosition.y << ',' << evt.worldPosition.z;
 
-          file.WriteCuePoint(time, -1, ss.str());
+          file.WriteCuePoint(time_sum_us, -1, ss.str());
 
-          file.WriteOffNote(time, NormaliseNote(note));
+          file.WriteOffNote(time_sum_us, NormaliseNote(note));
           RemoveNote(notes, note);
         }
+        
       }
 
       file.EndTrack();

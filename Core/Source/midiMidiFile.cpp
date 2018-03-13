@@ -78,6 +78,23 @@ namespace SceneTrackMidi
     }
   }
   
+  void WriteVariableLengthU(std::vector<u8>& data, u64 number)
+  {
+    unsigned char b;
+    unsigned long buffer;
+    buffer = number & 0x7f;
+    while ((number >>= 7) > 0) {
+      buffer <<= 8;
+      buffer |= 0x80 + (number & 0x7f);
+    }
+    while (1) {
+      b = buffer & 0xff;
+      data.push_back(b);
+      if (buffer & 0x80) buffer >>= 8;
+      else break;
+    }
+  }
+  
   MidiFile::MidiFile()
   {
     file = nullptr;
@@ -216,24 +233,26 @@ namespace SceneTrackMidi
 #else
     file = fopen(path, "wb");
 #endif
-
+ 
     fwrite("MThd", 4, 1, file);
     WriteBigEndian<u32>(file, 6);         // Header Size
     WriteBigEndian<u16>(file, 1);         // Format - Multiple track format
     WriteBigEndian<u16>(file, 1 + nbTracks);  // Number of tracks
 
-    ticksPerQuarterNote = 1000;     // 100 = 1 second
-    tempo               = 1000000; // 1,000,000 = useconds per beat?
+    //ticksPerQuarterNote = 60;     // 100 = 1 second
+
+    tempo               = 960;      // 1,000,000 = useconds per beat?
+    ticksPerQuarterNote = 2500;     // 100 = 1 second
 
     secondsMultiplier   = 1000.0f;  // 100 = 1 second
 
     // tempo/ticksPerQuarterNote = timing resolution
-    // 10ms.
+    // 10ms.   
 
     WriteBigEndian<u16>(file, (u16) ticksPerQuarterNote);
-
-    StartTrack("");
-    _WriteTimeSig(4, 2, 24, 8);
+     
+    StartTrack(""); 
+    _WriteTimeSig(4, 4, 24, 8);
     _WriteTempo(tempo);
 
     EndTrack();
@@ -253,7 +272,9 @@ namespace SceneTrackMidi
   {
     trackName = trackName_;
     trackData.clear();
-    lastTime = 0;
+    lastTime_us = 0;
+    lastTimeFrac = 0;
+
 
     for(u32 i=0;i < 127;i++)
       noteTime[i] = NOTE_UP;
@@ -290,16 +311,47 @@ namespace SceneTrackMidi
     trackData.clear();
   }
   
-  void MidiFile::_WriteTime(f64 absTime, s64 timeOffsetTicks)
+  void MidiFile::_WriteTime(u64 absTime, s64 timeOffsetTicks)
   {
-    s64 s = (u64) ((absTime * secondsMultiplier)) + timeOffsetTicks;
+    #if 0
+    const f64 MICROSECONDS_F = 1000000.0;
+
+    f64 timeMicroSeconds = (absTime * MICROSECONDS_F);
+
+    s64 s = (u64) timeMicroSeconds + timeOffsetTicks;
     if (s < 0)
       s = 0;
 
     u64 delta = s - lastTime;
     lastTime = s;
 
-    WriteVariableLength(trackData, delta);
+    WriteVariableLength(trackData, delta / 1000);
+    #else
+
+    STEXP_UNUSED(timeOffsetTicks);
+    
+   // ST_LOGF("TIME", "Abs = %llu", absTime);
+    //ST_LOGF("TIME", "Last = %llu", lastTime_us);
+
+    u64 delta_us = absTime - lastTime_us;
+    lastTime_us = absTime;
+   // ST_LOGF("TIME", "Delta = %llu", delta_us);
+
+    u64 ticks = delta_us / 25;
+    f64 ticks_d = (f64) delta_us / 25.0;
+    f64 frac = ticks_d - (f64) ticks;
+    lastTimeFrac += frac;
+    while(lastTimeFrac > 1.0)
+    { 
+      ticks++;
+      lastTimeFrac -= 1.0;
+    }
+     
+   // ST_LOGF("TIME", "Ticks.1 = %llu", ticks);
+    //ticks += timeOffsetTicks;
+    //ST_LOGF("TIME", "Ticks.2 = %llu", ticks);
+    WriteVariableLengthU(trackData, ticks); 
+    #endif
   }
 
   void MidiFile::_WriteStatus(u8 category, u8 channel)
@@ -313,7 +365,7 @@ namespace SceneTrackMidi
     trackData.push_back(byte);
   }
 
-  void MidiFile::WriteOnNote(f64 absTime, u8 note, u8 velocity)
+  void MidiFile::WriteOnNote(u64 absTime, u8 note, u8 velocity)
   {
     if (noteTime[note] != NOTE_UP)
       return;
@@ -327,10 +379,10 @@ namespace SceneTrackMidi
     // velocity
     _WriteByte(velocity & 0x7F);
 
-    noteTime[note] = lastTime;
+    noteTime[note] = absTime;
   }
 
-  void MidiFile::WriteOffNote(f64 absTime, u8 note)
+  void MidiFile::WriteOffNote(u64 absTime, u8 note)
   {
     if (noteTime[note] == NOTE_UP)
       return;
@@ -347,7 +399,7 @@ namespace SceneTrackMidi
     noteTime[note] = NOTE_UP;
   }
 
-  void MidiFile::WriteLyric(f64 time, s64 timeOffsetTicks, const std::string& text)
+  void MidiFile::WriteLyric(u64 time, s64 timeOffsetTicks, const std::string& text)
   {
     _WriteTime(time, timeOffsetTicks);
     _WriteByte(0xFF);
@@ -355,7 +407,7 @@ namespace SceneTrackMidi
     _WriteString(text);
   }
 
-  void MidiFile::WriteCuePoint(f64 time, s64 timeOffsetTicks, const std::string& text)
+  void MidiFile::WriteCuePoint(u64 time, s64 timeOffsetTicks, const std::string& text)
   {
     _WriteTime(time, timeOffsetTicks);
     _WriteByte(0xFF);
@@ -363,7 +415,7 @@ namespace SceneTrackMidi
     _WriteString(text);
   }
 
-  void MidiFile::WriteTrackName(f64 time, s64 timeOffsetTicks, const std::string& text)
+  void MidiFile::WriteTrackName(u64 time, s64 timeOffsetTicks, const std::string& text)
   {
     _WriteTime(time, timeOffsetTicks);
     _WriteByte(0xFF);
@@ -377,9 +429,10 @@ namespace SceneTrackMidi
     _WriteByte(0xFF); // Meta Event
     _WriteByte(0x51);
     _WriteByte(0x03);
-    _WriteByte((u8)((tempo_ & 0xFF0000) >> 16));
-    _WriteByte((u8)((tempo_ & 0x00FF00) >> 8));
-    _WriteByte((u8)((tempo_ & 0x0000FF)));
+    u64 t = (u64) 60000000 / tempo_;
+    _WriteByte((u8)((t & 0xFF0000) >> 16));
+    _WriteByte((u8)((t & 0x00FF00) >> 8));
+    _WriteByte((u8)((t & 0x0000FF)));
   }
 
   void MidiFile::_WriteCStr(const char* str)
@@ -405,7 +458,13 @@ namespace SceneTrackMidi
     _WriteByte(0x58);
     _WriteByte(0x04);
     _WriteByte(num);
-    _WriteByte(denom);
+   
+    // denom is encoded as power of 2.
+    u8 dd = 0;
+    while (denom >>= 1)
+      dd++;
+
+    _WriteByte(dd);
     _WriteByte(clocksPerTick);
     _WriteByte(num32nds);
   }
