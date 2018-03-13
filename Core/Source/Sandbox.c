@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * Sandbox.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Developer Testing Program for Scene Track and Exporters
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * midiVersion.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * MidiExporter Version information functions
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

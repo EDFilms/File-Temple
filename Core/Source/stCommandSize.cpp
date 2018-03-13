@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stCommandSize.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * UNUSED. See stCommandType.c
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

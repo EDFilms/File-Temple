@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stObjectData.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Manages memory and classes for changes of object's component-data/"cold" data during a frame.
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

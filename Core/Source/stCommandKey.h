@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stCommandKey.h
  *
- * [[[BREIF DESCRIPTION]]]
+ * Unique Key associated with each submitted command
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
@@ -49,6 +49,9 @@
 #define ST_KEY_SIZE_FRAME       (1 << ST_KEY_BITS_FRAME)
 #define ST_KEY_MASK_FRAME       ST_KEY_SHIFT_MASK(ST_KEY_SIZE_FRAME, ST_KEY_SHIFT_FRAME)
 
+/**
+ * An exploded version of the stCommandKey
+ */
 struct stCommandKeyInfoT
 {
   u64 object;
@@ -74,6 +77,10 @@ typedef struct stCommandKeyInfoT stCommandKeyInfo;
 --|         +------------------------------------------------------------ Frame Modulus |       | 0x08   |
 */
 
+/**
+ * Fill out a stCommandKeyInfo with the given parameters
+ * @return the number of bytes the command is
+ */
 // Make Command Info
 // Returns: True data size
 ST_INLINE u32 stMakeCommandInfo(stCommandKeyInfo* info, u32 frameNumber, stEnum32 commandType, u32 objectId, u8 componentId, u8 flags, u16 byteSize, u8 customSize)
@@ -90,6 +97,9 @@ ST_INLINE u32 stMakeCommandInfo(stCommandKeyInfo* info, u32 frameNumber, stEnum3
   return (u32) byteSize;
 }
 
+/**
+ * Encode a stCommandKeyInfo into a stCommandKey
+ */
 ST_INLINE u64 stCommandInfoToCommandKey(stCommandKeyInfo* info)
 {
   const u64 customSize = ((info->customSize)   << ST_KEY_SHIFT_CUSTOM_SIZE)      & ST_KEY_MASK_CUSTOM_SIZE;
@@ -104,42 +114,63 @@ ST_INLINE u64 stCommandInfoToCommandKey(stCommandKeyInfo* info)
   return key;
 }
 
-
+/**
+ * Fetch the Object from the stCommandKey
+ */
 ST_INLINE u32 stGetCommandObject(u64 key)
 {
   u64 m = ((key & ST_KEY_MASK_OBJECT) >> ST_KEY_SHIFT_OBJECT);
   return (u32) m;
 }
 
+/**
+ * Check to see if the stCommandKey is an event?
+ */
 ST_INLINE stBool stGetCommandIsEvent(u64 key)
 {
   return stGetCommandObject(key) >= 0x7FFFFF;
 }
 
+/**
+ * Fetch the Component Id from the stCommandKey
+ */
 ST_INLINE u32 stGetCommandComponent(u64 key)
 {
   u64 m = ((key & ST_KEY_MASK_COMPONENT) >> ST_KEY_SHIFT_COMPONENT);
   return (u32) m;
 }
 
+/**
+ * Fetch the CommandType from the stCommandKey
+ * @see stCommandType
+ */
 ST_INLINE stCommandType stGetCommandType(u64 key)
 {
   u64 m = ((key & ST_KEY_MASK_COMMAND) >> ST_KEY_SHIFT_COMMAND);
   return (stCommandType) m;
 }
 
+/**
+ * Fetch the disk size of the data associated with the stCommandKey
+ */
 ST_INLINE u32 stGetCommandSize(u64 key)
 {
   u32 m = stGetCommandType(key);
   return stCommandCountDiskSize[m];
 }
 
+/**
+ * Fetch the custom size of the data associated with the stCommandKey
+ */
 ST_INLINE u32 stGetCommandCustomSize(u64 key)
 {
   u64 m = ((key & ST_KEY_MASK_CUSTOM_SIZE) >> ST_KEY_SHIFT_CUSTOM_SIZE);
   return (u32) m;
 }
 
+/**
+ * Get the data type and number of elements (scalar or vector) associated with the stCommandKey
+ */
 ST_INLINE void stGetCommandDataTypeAndNbElements(u64 key, u32* type, u32* nbElements)
 {
   stCommandType m = stGetCommandType(key);
@@ -152,9 +183,13 @@ ST_INLINE void stGetCommandDataTypeAndNbElements(u64 key, u32* type, u32* nbElem
 #define ST_ARRAY_TYPE_INLINE      1
 #define ST_ARRAY_TYPE_OBJECT_DATA 2
 
-// 0 - Not an array
-// 1 - Inline
-// 2 - Object Data
+
+/**
+ * Get the Array type of the stCommandKey
+ * @return    0 - This is not an array
+ *            1 - Array is stored inline with the Command Data
+ *            2 - Array is stored in the Object Data section
+ */
 ST_INLINE u32 stGetCommandArrayType(u64 key)
 {
   stCommandType type = stGetCommandType(key);

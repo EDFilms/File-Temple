@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stObject.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Classes, Components and Object registration and setting values
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

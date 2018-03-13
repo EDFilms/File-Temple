@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stPlatform.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Configuration macros and common functions/macros, and Windows/macOS portable functions.
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

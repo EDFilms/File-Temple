@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stThreads.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Cross-platform functions and classes for threads and synchronization
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

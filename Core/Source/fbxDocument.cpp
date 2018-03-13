@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * fbxDocument.cpp
  *
- * [[[BREIF DESCRIPTION]]]
+ * Represents an FBX Document based upon the Unity Schema
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1

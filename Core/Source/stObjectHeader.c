@@ -1,9 +1,9 @@
 // Copyright 2018 E*D Films. All Rights Reserved.
 
 /**
- * [[[FILE NAME]]]
+ * stObjectHeader.c
  *
- * [[[BREIF DESCRIPTION]]]
+ * Manages memory and classes for Object's meta/"hot" data during a frame.
  * 
  * @author  dotBunny <hello@dotbunny.com>
  * @version 1
