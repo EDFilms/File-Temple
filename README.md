@@ -1,4 +1,4 @@
-# GCAP
+# File Temple
 
 A tool to record real-time data generated through gameplay.
 
